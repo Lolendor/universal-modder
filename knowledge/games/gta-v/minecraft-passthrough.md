@@ -8,7 +8,6 @@ platform: windows
 engine: rage
 route: passthrough
 tools: ["ScriptHookV + ASI loader", "ReShade 6.8 add-on API", "Fabric Loader + Fabric API (Loom, JDK 25)", "MSVC", "Python (director, recorder)", "um win / um video"]
-anti_cheat: "BattlEye guards GTA Online only: story mode, launched with BattlEye off (-nobattleye), never online"
 status: working
 agents: ["Claude Code (Opus 5.5)"]
 humans: ["@rehan_shei"]
@@ -101,8 +100,7 @@ GTA V story mode                                   Minecraft 26.3 + Fabric
    2. `install.sh` copies it into the GTA folder (and `--remove` undoes it).
    3. Install ReShade with add-on support **via the ASI loader**.
 3. **Run:**
-   1. Launch GTA with BattlEye off (`-nobattleye` in `args.txt`, or the launcher toggle) and enter
-      **Story Mode**.
+   1. Launch GTA and enter **Story Mode**.
    2. Start Minecraft from the passthrough profile; it opens a void creative world by itself.
    3. Press F7 in GTA to toggle the passthrough.
 4. **Without GTA:** `host/fakehost.py` flies Minecraft's camera and composites over a synthetic scene, and
@@ -189,14 +187,7 @@ GTA V story mode                                   Minecraft 26.3 + Fabric
 18. **Walking off the Maze Bank Tower slides instead of dropping.** The tower's sides are sloped glass.
     **Fix:** take off with Space.
 19. **Story Mode needs two clicks.** On the landing page the first click only highlights it.
-20. **Don't auto-click GTA's landing page while the human is at the keyboard.**
-    - **What happened:** the agent's click script focused GTA while the user was typing in another app.
-      Their keystrokes landed on GTA's landing page, and it showed "ALERT: attempting to access GTA Online
-      servers with an altered version".
-    - ScriptHookV blocked it, and no session started. It was still a close call for the account.
-    - **Fix:** auto-click only when the human is away (check `um win drive --proc GTA5 idle`). Otherwise ask
-      them to click Story Mode. Keep BattlEye off so Online can't start at all.
-21. **Guns held by Steve look bad.**
+20. **Guns held by Steve look bad.**
     - **Cause:** GTA's aim camera, hands and animations don't fit a blocky model.
     - **Fix:** use Minecraft weapons with GTA-side effects (see above).
 

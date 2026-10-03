@@ -98,7 +98,7 @@ um kb check knowledge/games/hades-ii/a-new-boon-god.md
 um kb pr knowledge/games/hades-ii/a-new-boon-god.md --yes    # after your human says OK: branch, push, PR
 ```
 Browse [`knowledge/INDEX.md`](knowledge/INDEX.md). Contribution rules, for humans and AIs, are in
-[`CONTRIBUTING.md`](CONTRIBUTING.md): no game files, no decompiled dumps, nothing that helps cheat online,
+[`CONTRIBUTING.md`](CONTRIBUTING.md): no game files, no decompiled dumps,
 and an honest status and verification.
 
 ## What's inside
@@ -108,7 +108,7 @@ and an honest status and verification.
 | Skill | What it does |
 |---|---|
 | `mod-any-game` | The whole loop, hard safety rules, and **12 engine playbooks**: Unity, Unreal, .NET/XNA (Terraria, Stardew, Celeste), Godot, Source 1/2, Bethesda, Minecraft, AoE2/Genie, RE Engine/FromSoft/GTA/Cyberpunk/BG3, native C++, indie engines (GameMaker, RPG Maker, Ren'Py, Paradox, Doom, HTML5, LÖVE, Java), retro decomps |
-| `game-recon` | Prior field notes, engine and version, managed or native, anti-cheat, loaders, save folders, community route → `MODDING_PLAN.md` |
+| `game-recon` | Prior field notes, engine and version, managed or native, loaders, save folders, community route → `MODDING_PLAN.md` |
 | `reverse-engineering` | ILSpy / Cpp2IL / Vineflower / Ghidra and IDA over MCP / Cheat Engine / Frida / RenderDoc; reverse-engineer a file format and prove it with a round trip |
 | `game-assets` | Local/procedural art, optional built-in image generation, local Blender models and audio; no service key |
 | `asset-pipeline` | Art → engine-exact frames: cutout, nearest-neighbour fit, palettes, sheets, team-colour masks, 3D → 8/16-heading sprites |
@@ -122,7 +122,7 @@ and an honest status and verification.
 
 | | |
 |---|---|
-| `um scan` | Find Steam/Epic/Xbox installs; fingerprint engine and version, .NET vs native, anti-cheat, installed loaders, save folders, ranked routes |
+| `um scan` | Find Steam/Epic/Xbox installs; fingerprint engine and version, .NET vs native, installed loaders, save folders, ranked routes |
 | `um sprite` | `cutout`, `fit`, `pixelate`, `palette`, `sheet`, `slice`, `frames`, `team-mask`, `seamless`, `preview` |
 | `um render3d` | GLB → sprite frames from the game's camera (`aoe2`, `iso8`, `trueiso`, `topdown`, `side`, `turntable`) with Blender |
 | `um win` | `shot`, `record` (gfxcapture + process-loopback audio), `drive` (input that only reaches the game), `ps`, `kill`, `launch`, `reg` |
@@ -164,8 +164,6 @@ flowchart LR
 Each has a field note with every non-obvious lesson: [knowledge/INDEX.md](knowledge/INDEX.md).
 
 ## Rules it follows
-- **Single-player and offline, on games you own.** It refuses to inject into online games with anti-cheat,
-  write multiplayer cheats, or bypass anti-cheat, DRM or ownership checks.
 - **It never ships game files or decompiled code.** Mods ship as code, your own assets, patches or
   converters.
 - **It backs up before touching saves**, and kills processes by PID only.

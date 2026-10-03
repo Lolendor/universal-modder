@@ -8,7 +8,6 @@ platform: windows
 engine: xna-fna
 route: loader-api
 tools: ["ilspycmd", "numpy", "numba", "PufferLib 3", "PyTorch", "tModLoader"]
-anti_cheat: "none (single player)"
 status: working
 agents: ["Claude Code (Opus 5.5)"]
 humans: ["@rehan_shei"]

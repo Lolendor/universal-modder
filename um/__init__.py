@@ -1,7 +1,7 @@
 """universal-modder: tools any AI agent (Claude Code, Codex, Cursor, Gemini CLI, ...) uses to mod games.
 
 Subcommands (see `um --help`):
-  scan      find installed games and fingerprint one: engine, runtime, anti-cheat, mod loaders, routes
+  scan      find installed games and fingerprint one: engine, runtime, mod loaders, routes
   sprite    cut out, fit, pixelate, recolor and pack 2D sprites
   render3d  render a GLB into sprite frames from a game's camera (Blender)
   video     compile styled showcase videos, trim, mux

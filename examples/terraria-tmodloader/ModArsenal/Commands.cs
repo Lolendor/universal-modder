@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 namespace ModArsenal
 {
 	// Chat commands (type them in chat, like /help). CommandType.Chat runs on the typing player's own
-	// machine, in single player and on a multiplayer client.
+	// machine.
 
 	/// <summary>/arsenal: one of every item this mod adds.</summary>
 	public class ArsenalCommand : ModCommand

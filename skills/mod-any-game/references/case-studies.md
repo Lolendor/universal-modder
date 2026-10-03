@@ -11,7 +11,7 @@ community loader. It is a free Steam app, id 1281930. Content is written in C# a
 `ModProjectile`, `ModNPC`, `ModSystem`, `ModPlayer`, `ModCommand`.
 
 **Pipeline**
-1. Recon: `um scan terraria` → XNA/FNA .NET, no anti-cheat, known route tModLoader.
+1. Recon: `um scan terraria` → XNA/FNA .NET, known route tModLoader.
 2. Source of truth: decompile `Terraria.exe` with `ilspycmd` into `~/terraria-decomp`, outside git. Read
    vanilla AI there (e.g. `NPC.AI_004` for the Eye of Cthulhu, `aiStyle` numbers). tModLoader's own
    decompiled base (1.4.4.9) was diffed against vanilla 1.4.5.8 to confirm the logic matched. The only
@@ -60,7 +60,7 @@ community loader. It is a free Steam app, id 1281930. Content is written in C# a
 `%USERPROFILE%\Games\Age of Empires 2 DE\<steamid>\mods\local\<Mod>`.
 
 **Pipeline**
-1. Recon: `um scan "age of empires"` → Genie, no anti-cheat (ranked uses unmodded data anyway).
+1. Recon: `um scan "age of empires"` → Genie.
 2. **Data:** clone the Britons' tech tree into the new civ. Add unique units by deep-copying a template unit,
    then changing stats, graphics and train location. Add unique techs with effects, bonuses, key-value
    strings, and a tech tree JSON.
@@ -119,8 +119,6 @@ Code: `examples/minecraft-gta5-passthrough`.
   `GetTickCount` judders.
 - **Guns vs weapons:** host-game guns on a guest avatar looked wrong. Guest weapons with host-game effects
   (arrows → GTA bullets, fireworks → GTA explosions) worked.
-- **The human at the keyboard:** never focus GTA's landing page while they're typing. Keystrokes there
-  nearly started GTA Online with a modified game. ScriptHookV blocked it.
 
 ## What the 2026 AI mashup wave added
 

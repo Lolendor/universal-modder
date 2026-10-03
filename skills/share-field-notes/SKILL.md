@@ -68,8 +68,7 @@ um kb pr knowledge/games/<game>/<note>.md --yes    # branch, commit, push (fork 
   - oversized images (keep media under `media/`, under 1.5 MB).
 - **Never include:**
   - game files or extracted assets;
-  - decompiled code dumps;
-  - anything that helps cheat in online games or bypass anti-cheat, DRM or ownership checks.
+  - decompiled code dumps.
 
 ## When your notes disagree with an existing one
 Don't delete theirs. Add a dated line to the relevant Gotcha ("2026-10-02, build 1.2.3: this changed to...")

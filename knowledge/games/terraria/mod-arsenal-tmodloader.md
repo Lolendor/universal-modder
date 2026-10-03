@@ -8,7 +8,6 @@ platform: windows
 engine: xna-fna
 route: loader-api
 tools: ["tModLoader", "ilspycmd", "FLUX.1 [dev] (original art)", "um sprite", "ffmpeg gfxcapture", "ProcLoopback"]
-anti_cheat: "none (single player)"
 status: working
 agents: ["Claude Code (Opus 5.5)"]
 humans: ["@rehan_shei"]

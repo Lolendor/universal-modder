@@ -1,20 +1,18 @@
 #!/bin/bash
-# Install the passthrough into GTA V Legacy (story mode): ScriptHookV + its ASI loader, MCPassthrough.asi and
+# Install the passthrough into GTA V Legacy: ScriptHookV + its ASI loader, MCPassthrough.asi and
 # ReShade with MCPassthrough.fx. Only adds files; `install.sh --remove` deletes exactly those.
 # ReShade goes in as ReShade64.asi, loaded by the ASI loader: GTA loads the system dxgi.dll, so a ReShade dxgi.dll
 # in the game folder never runs.
-# ScriptHookV only runs with BattlEye off (Rockstar launcher setting, or -nobattleye), i.e. story mode only.
 #   GTA_DIR   the folder with GTA5.exe (default: GTA V Legacy, Steam app 271590, found in your Steam libraries)
 #   RUNTIME   ScriptHookV.dll, dinput8.dll, ReShade64.dll from fetch_deps.sh (default third_party/runtime)
 #   BUILD     where build.sh put MCPassthrough.asi (default <PASSTHROUGH_WIN_DIR>\gta\build, C:\dev\passthrough\...)
-#   FORCE=1   replace a dinput8.dll, ReShade64.asi or args.txt that some other mod (or you) put there
+#   FORCE=1   replace a dinput8.dll or ReShade64.asi that some other mod (or you) put there
 set -e
 HERE=$(cd "$(dirname "$0")" && pwd)
 WIN=${PASSTHROUGH_WIN_DIR:-'C:\dev\passthrough'}
 RUNTIME=${RUNTIME:-$HERE/third_party/runtime}
 BUILD=${BUILD:-$(wslpath -u "$WIN\\gta\\build")}
-ARGS='-nobattleye -noBE'
-FILES=(ScriptHookV.dll dinput8.dll args.txt MCPassthrough.asi ReShade64.asi ReShade.ini ReShadePreset.ini
+FILES=(ScriptHookV.dll dinput8.dll MCPassthrough.asi ReShade64.asi ReShade.ini ReShadePreset.ini
 	reshade-shaders/Shaders/MCPassthrough.fx reshade-shaders/Shaders/ReShade.fxh reshade-shaders/Shaders/ReShadeUI.fxh)
 
 # the Steam libraries: the default ones and every other one listed in their libraryfolders.vdf
@@ -43,15 +41,12 @@ if [ "$1" = "--remove" ]; then
 fi
 [ -f "$RUNTIME/ScriptHookV.dll" ] || { echo "fetch the runtime first: gta/fetch_deps.sh"; exit 1; }
 [ -f "$BUILD/MCPassthrough.asi" ] || { echo "build it first: gta/build.sh"; exit 1; }
-# another mod's ASI loader or ReShade, or your own launch arguments, stay unless FORCE=1 (--remove would delete them)
+# another mod's ASI loader or ReShade stay unless FORCE=1 (--remove would delete them)
 clash=
 [ ! -f "$GTA/dinput8.dll" ] || cmp -s "$RUNTIME/dinput8.dll" "$GTA/dinput8.dll" || clash+=" dinput8.dll"
 [ ! -f "$GTA/ReShade64.asi" ] || cmp -s "$RUNTIME/ReShade64.dll" "$GTA/ReShade64.asi" || clash+=" ReShade64.asi"
-[ ! -f "$GTA/args.txt" ] || [ "$(cat "$GTA/args.txt")" = "$ARGS" ] || clash+=" args.txt"
 [ -z "$clash" ] || [ -n "$FORCE" ] || { echo "not replacing what is already in $GTA:$clash (FORCE=1 to replace)"; exit 1; }
 cp -v "$RUNTIME/ScriptHookV.dll" "$RUNTIME/dinput8.dll" "$BUILD/MCPassthrough.asi" "$GTA/"
-# ScriptHookV's own args.txt: story mode without BattlEye (no GTA Online while it is there)
-printf -- '%s' "$ARGS" > "$GTA/args.txt"
 cp -v "$RUNTIME/ReShade64.dll" "$GTA/ReShade64.asi"
 mkdir -p "$GTA/reshade-shaders/Shaders"
 cp -v "$HERE/shaders/MCPassthrough.fx" "$HERE/third_party/ReShade.fxh" "$HERE/third_party/ReShadeUI.fxh" "$GTA/reshade-shaders/Shaders/"

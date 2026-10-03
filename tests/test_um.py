@@ -1,4 +1,4 @@
-"""Offline tests for the pieces that don't need a game, a GPU or an asset-service key.
+"""Tests for the pieces that don't need a game, a GPU or an asset-service key.
 
     uv run --with pytest pytest -q
 """
@@ -229,7 +229,7 @@ def test_kb_new_check_search(tmp_path):
     fails, _ = kb.check_note(p, root)
     assert any("unfilled template text" in f for f in fails)          # a fresh scaffold must not pass
     good = p.read_text()
-    good = good.replace("FILL IN: exact build", "1.0.1 (Steam)").replace("anti_cheat: FILL IN", "anti_cheat: none")
+    good = good.replace("FILL IN: exact build", "1.0.1 (Steam)")
     good = good.replace("> Two to four sentences: what you built", "> Added a boon god via a Lua mod loader")
     good = good.replace("The most valuable section. Numbered; each one symptom → cause → fix.", "")
     good = good.replace("1. **Symptom.** What you saw. **Cause:** what it really was. **Fix:** what worked.",

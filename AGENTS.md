@@ -17,7 +17,7 @@ repo, they almost always want to **mod a game**, or to learn how a game was modd
   - Put it on PATH: `export PATH="$PWD/bin:$PATH"`, or install it anywhere with
     `uv tool install git+https://github.com/Lolendor/universal-modder`.
   - Every group has `--help`:
-    - `scan`: installed games, engine, anti-cheat, loaders, saves, routes
+    - `scan`: installed games, engine, loaders, saves, routes
     - `sprite` / `render3d`: art → engine-ready frames
     - `win`: launch, screenshot, input, record on Windows (also from WSL)
     - `video`: contact sheets and EDL showcase edits
@@ -35,16 +35,12 @@ repo, they almost always want to **mod a game**, or to learn how a game was modd
   `examples/minecraft-gta5-passthrough`.
 
 ## Rules (full reasoning in `skills/mod-any-game/references/safety.md`)
-- **What you can mod:** only games the user owns, single-player/offline.
-  - Never touch online clients protected by anti-cheat.
-  - Never write multiplayer cheats.
-  - Never bypass anti-cheat, DRM or ownership checks.
 - **Saves:** `um backup` saves before modded launches.
 - **What you ship:** never commit or publish game files, extracted assets or decompiled code. Keep
   decompiles outside the repo.
 - **Processes:** kill by exact PID (`um win kill`), never by name pattern.
 - **Ask first** before:
-  - driving the user's mouse and keyboard, and never focus a game with an online mode while they're typing;
+  - driving the user's mouse and keyboard;
   - installing loaders into game folders or changing the registry;
   - publishing anything, PRs included.
 - **Keep a journal:** a `MODLOG.md` in the mod's working folder. It becomes your field note at the end.

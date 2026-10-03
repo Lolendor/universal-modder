@@ -1,4 +1,4 @@
-"""Find installed games and fingerprint one: engine, scripting runtime, anti-cheat, mod loaders, saves.
+"""Find installed games and fingerprint one: engine, scripting runtime, mod loaders, saves.
 
     um scan --list                 # Steam / Epic / Xbox installs on this machine (Windows, WSL, Linux, macOS)
     um scan terraria               # fuzzy name or a path; prints the report
@@ -292,18 +292,6 @@ def godot_pck(path: Path) -> str | None:
 
 # --------------------------------------------------------------------------- knowledge tables
 
-ANTI_CHEAT = [
-    ("EasyAntiCheat", ("easyanticheat/*", "*easyanticheat*", "start_protected_game.exe", "eac_launcher.exe")),
-    ("BattlEye", ("battleye/*", "*beservice*", "*_be.exe")),
-    ("EA Javelin anticheat", ("eaanticheat*", "*/eaanticheat*")),
-    ("nProtect GameGuard", ("gameguard/*", "*gamemon*.des")),
-    ("XIGNCODE3", ("xigncode/*", "*x3.xem")),
-    ("Tencent ACE", ("*ace-base*", "*sgguard*", "*/ace/*.sys")),
-    ("mhyprot", ("*mhypbase.dll", "*mhyprot*")),
-    ("PunkBuster", ("pb/pbsvc*", "pb/pbcl*")),
-    ("Ricochet", ("*randgrid.sys",)),
-]
-
 LOADERS = [
     ("BepInEx", ("bepinex/core/*", "doorstop_config.ini", ".doorstop_version")),
     ("MelonLoader", ("melonloader/*",)),
@@ -337,9 +325,9 @@ KNOWN = {
     "the elder scrolls v: skyrim special edition": ("ESP/ESL plugins (xEdit, Creation Kit), Papyrus, SKSE + CommonLibSSE-NG native plugins, MO2", "bethesda.md"),
     "fallout 4": ("ESP plugins (FO4Edit, Creation Kit), Papyrus, F4SE plugins, MO2", "bethesda.md"),
     "starfield": ("Creation Kit plugins, SFSE", "bethesda.md"),
-    "elden ring": ("ModEngine2 (offline, EAC disabled) + Smithbox/DSMapStudio param/map edits; never online", "big-frameworks.md"),
-    "grand theft auto v": ("Story mode only: ScriptHookV + ASI loader, OpenIV/CodeWalker; BattlEye guards GTA Online - never mod online", "big-frameworks.md"),
-    "grand theft auto v enhanced": ("Story mode only: ScriptHookV (enhanced build) + ASI loader; BattlEye guards GTA Online - never mod online", "big-frameworks.md"),
+    "elden ring": ("ModEngine2 + Smithbox/DSMapStudio param/map edits", "big-frameworks.md"),
+    "grand theft auto v": ("ScriptHookV + ASI loader, OpenIV/CodeWalker", "big-frameworks.md"),
+    "grand theft auto v enhanced": ("ScriptHookV (enhanced build) + ASI loader", "big-frameworks.md"),
     "cyberpunk 2077": ("REDmod / Cyber Engine Tweaks (Lua) / RED4ext / ArchiveXL, WolvenKit for assets", "big-frameworks.md"),
     "baldur's gate 3": ("Script Extender (Lua) + LSLib/Multitool for .pak, official mod.io toolkit", "big-frameworks.md"),
     "valheim": ("BepInEx 5 + Jotunn, HarmonyX patches", "unity.md"),
@@ -349,7 +337,7 @@ KNOWN = {
     "slay the spire": ("ModTheSpire + BaseMod (Java, SpirePatch)", "misc-engines.md"),
     "balatro": ("Steamodded + lovely (Lua injection into the LÖVE game)", "misc-engines.md"),
     "factorio": ("official Lua modding API (mods/ folder, data.lua + control.lua)", "misc-engines.md"),
-    "counter-strike 2": ("Workshop maps / Source 2 tools; local -insecure only. VAC: never inject on official servers", "source.md"),
+    "counter-strike 2": ("Workshop maps / Source 2 tools", "source.md"),
     "portal 2": ("VScript (Squirrel) + Puzzle Maker/Hammer, Workshop", "source.md"),
     "half-life 2": ("Source SDK 2013 mods (C++), maps with Hammer", "source.md"),
     "doom": ("WAD/PK3 mods with a source port (GZDoom/UZDoom)", "misc-engines.md"),
@@ -370,10 +358,6 @@ KNOWN_SAVES = {
     "counter-strike 2": [],
 }
 
-ONLINE_ONLY = ["valorant", "league of legends", "fortnite", "apex legends", "pubg", "rainbow six siege", "call of duty", "destiny 2",
-               "genshin impact", "escape from tarkov", "battlefield", "overwatch", "counter-strike 2", "dota 2", "marvel rivals",
-               "the finals", "rust", "dead by daylight", "naraka", "warframe", "deadlock"]
-
 ENGINES = {
     # key: (label, playbook, route)
     "unity-mono": ("Unity (Mono)", "unity.md", "BepInEx 5 (or MelonLoader) plugin in C# with HarmonyX patches; read Managed/Assembly-CSharp.dll with ILSpy; assets via AssetRipper/UABEA"),
@@ -386,18 +370,18 @@ ENGINES = {
     "renpy": ("Ren'Py", "misc-engines.md", "unrpa/unrpyc to read; add .rpy files in game/"),
     "xna-fna": ("XNA/FNA/MonoGame (.NET)", "dotnet-xna.md", "the game's loader if any (tModLoader, SMAPI, Everest), else Harmony/MonoMod patches; read the exe with ILSpy"),
     "dotnet": (".NET application", "dotnet-xna.md", "Harmony/MonoMod patches via a loader (BepInEx supports .NET games too); read with ILSpy"),
-    "source": ("Source (1)", "source.md", "custom/ + addons, VScript where supported, Source SDK mods; SourceMod only on servers you run"),
+    "source": ("Source (1)", "source.md", "custom/ + addons, VScript where supported, Source SDK mods; SourceMod"),
     "source2": ("Source 2", "source.md", "Workshop tools / addons, VScript/Panorama; decompile assets with Source 2 Viewer (VRF)"),
     "creation": ("Bethesda Creation/Gamebryo", "bethesda.md", "ESP/ESL plugins (xEdit, Creation Kit), Papyrus scripts, script-extender plugins, MO2 profiles"),
     "genie": ("Genie (Age of Empires DE)", "genie-aoe2.md", "data mods (genieutils-py), graphics/UI mods, scenarios; SLD sprites"),
     "clausewitz": ("Paradox Clausewitz/Jomini", "misc-engines.md", "script mods (plain text) in Documents/Paradox Interactive/<game>/mod"),
     "re-engine": ("Capcom RE Engine", "big-frameworks.md", "REFramework (Lua scripts, in-game UI) + Fluffy Mod Manager for pak/natives replacements"),
-    "fromsoft": ("FromSoftware (Dantelion)", "big-frameworks.md", "ModEngine2 + Smithbox/DSMapStudio, param edits; offline only"),
-    "rage": ("Rockstar RAGE", "big-frameworks.md", "story mode: ScriptHookV + ASI loader, OpenIV/CodeWalker for assets; never online"),
+    "fromsoft": ("FromSoftware (Dantelion)", "big-frameworks.md", "ModEngine2 + Smithbox/DSMapStudio, param edits"),
+    "rage": ("Rockstar RAGE", "big-frameworks.md", "ScriptHookV + ASI loader, OpenIV/CodeWalker for assets"),
     "redengine": ("CD Projekt REDengine", "big-frameworks.md", "REDmod, Cyber Engine Tweaks, RED4ext, WolvenKit (Cyberpunk); REDkit (Witcher 3)"),
     "idtech": ("id Tech / Doom family", "misc-engines.md", "WAD/PK3/PK4 mods, source ports"),
     "cryengine": ("CryEngine", "native.md", "pak (zip) overrides, Lua/XML where exposed; native hooks otherwise"),
-    "frostbite": ("Frostbite", "native.md", "Frosty Tool Suite for supported titles, offline only; most titles have kernel anti-cheat"),
+    "frostbite": ("Frostbite", "native.md", "Frosty Tool Suite for supported titles"),
     "electron": ("Electron / NW.js / HTML5", "misc-engines.md", "extract resources/app.asar (or package.nw), patch JS, open devtools"),
     "love2d": ("LÖVE (Lua)", "misc-engines.md", "the .love/exe is a zip of Lua; patch or inject with lovely"),
     "java": ("Java", "misc-engines.md", "decompile jars (Vineflower/CFR), patch with a mod loader or bytecode (Mixin/ASM)"),
@@ -622,13 +606,11 @@ def scan(query: str) -> dict:
     hits, facts = detect(ix)
     key, score, ev, det = hits[0]
     label, playbook, route = ENGINES[key]
-    anti = [n for n, pats in ANTI_CHEAT if ix.has(*pats) or ix.has_dir(*[p.rstrip("/*") for p in pats if p.endswith("/*")])]
     loaders = [n for n, pats in LOADERS if ix.has(*pats) or ix.has_dir(*[p.rstrip("/*") for p in pats if p.endswith("/*")])]
     moddirs = [d for d in MOD_DIRS if d in ix.dirs]
     name = (game.get("name") or root.name)
     lname = name.lower()
     known = next((v for k, v in KNOWN.items() if k == lname or (k in lname and len(k) > 5)), None)
-    online = next((g for g in ONLINE_ONLY if g in lname), None)
     routes = []
     if known:
         routes.append(dict(route=known[0], playbook=known[1], why="known game"))
@@ -639,18 +621,11 @@ def scan(query: str) -> dict:
     warnings = []
     if len(ix.files) < 5:
         warnings.append("the install folder is (nearly) empty: the game is not fully installed, or lives elsewhere")
-    if anti:
-        warnings.append(f"anti-cheat present ({', '.join(anti)}): offline/single-player only, never inject into online play; "
-                        "many titles need the anti-cheat disabled via an official offline launch option - do not bypass it")
-    if online:
-        warnings.append(f"'{online}' is an online competitive game: modding its client breaks the ToS and gets accounts banned - stop, or use official tools only (Workshop/creative modes)")
-    if any(l == "ScriptHookV" for l in loaders) and "rage" in key:
-        warnings.append("ScriptHookV only works in story mode; launch GTA offline")
     report = dict(
         name=name, store=game.get("store"), appid=game.get("appid"), path=str(root),
         engine=dict(key=key, label=label, confidence=score, evidence=ev, **{k: v for k, v in det.items() if v not in (None, "")}),
         other_engine_signals=[dict(key=h[0], evidence=h[2]) for h in hits[1:4]],
-        anti_cheat=anti, mod_loaders_installed=loaders, mod_folders=moddirs,
+        mod_loaders_installed=loaders, mod_folders=moddirs,
         workshop=game.get("workshop"), saves=save_hints(name, det),
         executables=facts.get("executables", {}), routes=routes, warnings=warnings,
         playbook=f"skills/mod-any-game/references/engines/{routes[0]['playbook']}",
@@ -672,7 +647,6 @@ def format_report(r: dict) -> str:
     ex = r.get("executables") or {}
     if ex:
         lines.append("  exes:      " + ", ".join(f"{k} [{v['arch']}{', .NET' if v['managed'] else ''}]" for k, v in list(ex.items())[:5]))
-    lines.append(f"  anti-cheat: {', '.join(r['anti_cheat']) or 'none found'}")
     lines.append(f"  loaders:   {', '.join(r['mod_loaders_installed']) or 'none installed'}")
     if r["mod_folders"]:
         lines.append(f"  mod dirs:  {', '.join(r['mod_folders'])}")
@@ -708,7 +682,7 @@ def main(args):
 
 
 def register(sub):
-    p = sub.add_parser("scan", help="find installed games; fingerprint engine, anti-cheat, loaders, saves, routes")
+    p = sub.add_parser("scan", help="find installed games; fingerprint engine, loaders, saves, routes")
     p.add_argument("game", nargs="?", help="name (fuzzy) or install folder")
     p.add_argument("--list", action="store_true", help="list installed games (Steam, Epic, Xbox)")
     p.add_argument("--json", action="store_true")

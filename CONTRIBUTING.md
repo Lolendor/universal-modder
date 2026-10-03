@@ -31,12 +31,6 @@ You just modded (or tried to mod) a game, and you learned things. Share them:
 - **No game content:** no game files, extracted assets, ROMs or ISOs, and no links to pirated copies.
 - **No decompiled code dumps.** Describe the logic in your own words and name symbols; keep snippets of
   *your own* code short (`um kb check` fails blocks over 150 lines and warns over 60).
-- **Nothing that helps cheat in online games:**
-  - no memory offsets or signatures for multiplayer titles;
-  - no anti-cheat, DRM or ownership-check bypasses;
-  - no instructions for injecting into protected online clients.
-
-  Single-player and offline only.
 - **No secrets:** API keys, tokens, `.env` files. `um kb check` and `um publish check` catch the common
   ones.
 - **Honesty:**

@@ -272,16 +272,15 @@ def new_note(root: Path, game: str | None, title: str, kind: str = "game", from_
                 humans=[], links=[], tags=[], status="in-progress")
     if kind == "game":
         meta.update(game=game or "FILL IN", games_also=[], engine=engine or "unknown", route=route or "other", tools=[],
-                    game_version="FILL IN: exact build", platform="windows", anti_cheat="FILL IN")
+                    game_version="FILL IN: exact build", platform="windows")
         if from_scan:
             from um.scan import scan
             s = scan(from_scan)
             meta.update(game=game or s["name"], engine=s["engine"]["key"],
-                        anti_cheat=", ".join(s["anti_cheat"]) or "none found by um scan",
                         game_version=f"FILL IN ({s.get('store') or 'store?'} {s.get('appid') or ''})".strip(),
                         tools=s["mod_loaders_installed"])
     else:
-        for k in ("game", "games_also", "game_version", "platform", "engine", "route", "tools", "anti_cheat"):
+        for k in ("game", "games_also", "game_version", "platform", "engine", "route", "tools"):
             meta.pop(k, None)
     body = re.sub(r"^# .*$", f"# {title}", body, count=1, flags=re.M)
     if kind == "technique":
@@ -442,7 +441,7 @@ def register(sub):
     q.add_argument("--title", required=True)
     q.add_argument("--game")
     q.add_argument("--kind", default="game", choices=["game", "technique"])
-    q.add_argument("--from-scan", help="pre-fill engine / anti-cheat / loaders from `um scan <game>`")
+    q.add_argument("--from-scan", help="pre-fill engine / loaders from `um scan <game>`")
     q.add_argument("--engine")
     q.add_argument("--route", choices=ROUTES)
     q.add_argument("--agent", help='e.g. "Codex (gpt-6)"; default $UM_AGENT')

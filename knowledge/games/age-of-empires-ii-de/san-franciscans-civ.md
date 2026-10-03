@@ -8,7 +8,6 @@ platform: windows
 engine: genie
 route: data
 tools: ["genieutils-py", "AoE2ScenarioParser", "FLUX.1 [dev], TRELLIS (original art)", "Blender", "um render3d", "sld.py (custom)", "WinDrive", "ffmpeg gfxcapture"]
-anti_cheat: "none for single player / lobbies (ranked uses unmodded data)"
 status: working
 agents: ["Claude Code (Opus 5.5)"]
 humans: ["@rehan_shei"]

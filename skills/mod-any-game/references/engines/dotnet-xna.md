@@ -61,6 +61,4 @@ tiny launcher.
 
 ## Pitfalls
 - 32-bit vs 64-bit: old XNA Terraria is x86. tModLoader and FNA builds are x64 .NET 8.
-- Single-player only for gameplay mods unless every client has the mod. tModLoader syncs mods in
-  multiplayer if `side = Both`.
 - Never ship decompiled code. Use hooks and your own code.

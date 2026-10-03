@@ -89,7 +89,6 @@ size and UI scale; find your own with step 4). Wait 1.5-4 s after each click for
 | step | client position (5120x1440) |
 |---|---|
 | Esc three times: skip the intro videos | `key 0x1B` |
-| Single Player | 1770, 450 |
 | "I've done this before" (only if the first-time prompt shows) | 2742, 816 |
 | Skirmish | 2250, 700 |
 | **Data Mod** dropdown, then our mod (the first entry) | 3291, 357 then 3291, 426 |

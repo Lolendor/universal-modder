@@ -1,6 +1,6 @@
 ---
 name: mod-any-game
-description: Mod a PC game the user owns, taking an idea to working in the real game and recorded. It covers new items, weapons, enemies, bosses, units, civilizations, mechanics, art, sound, VR and cross-game mashups. Use when the user wants to mod, extend, hack on, reverse engineer or mash up a game ("add a nuke to Terraria", "make a new civ for Age of Empires", "put Minecraft inside X", "can I mod this game?"). It covers recon (engine, loaders, anti-cheat), choosing the route, a safe lab, a first vertical slice, original assets, in-game verification and a showcase clip.
+description: Mod a PC game the user owns, taking an idea to working in the real game and recorded. It covers new items, weapons, enemies, bosses, units, civilizations, mechanics, art, sound, VR and cross-game mashups. Use when the user wants to mod, extend, hack on, reverse engineer or mash up a game ("add a nuke to Terraria", "make a new civ for Age of Empires", "put Minecraft inside X", "can I mod this game?"). It covers recon (engine, loaders), choosing the route, a safe lab, a first vertical slice, original assets, in-game verification and a showcase clip.
 ---
 
 # Mod any game
@@ -25,7 +25,7 @@ Otherwise install it once for any agent: `uv tool install git+https://github.com
 
 | Need | Command |
 |---|---|
-| What games are installed, what engine, what anti-cheat, where saves live | `um scan --list`, `um scan "<game>"` |
+| What games are installed, what engine, where saves live | `um scan --list`, `um scan "<game>"` |
 | Original art, local 3D models and audio | **game-assets**: local tools/files, optional built-in image generation |
 | Cut out / fit / pixelate / pack sprites; 3D model → sprite frames | `um sprite ...`, `um render3d ...` |
 | Launch, screenshot, click/type, record a Windows game (also from WSL) | `um win ...` |
@@ -41,9 +41,6 @@ Companion skills: **game-recon**, **reverse-engineering**, **game-assets**, **as
 ### 0. Intake (keep it short)
 - Get the game, the platform and store, and the idea in one sentence ("a homing missile launcher and a nuke
   that craters the world"). Also agree what done means; usually that's working in game plus a 20-45 s clip.
-- Settle online vs offline up front. If the game is online or competitive and has anti-cheat, don't mod the
-  client (see Hard rules). Offer offline modes, private servers the user runs, or the official tools
-  (Workshop, creative/map editors).
 - Start `MODLOG.md` in the working folder as the journal. Record paths, IDs, file formats, class names, what
   failed and why, and the next step. Anything not in the journal is lost at the next context compaction.
 
@@ -52,7 +49,7 @@ Companion skills: **game-recon**, **reverse-engineering**, **game-assets**, **as
   another agent left a field note, start from its exact versions, route and gotchas, and don't repeat its
   dead ends. Without `um`, read
   https://github.com/Lolendor/universal-modder/blob/main/knowledge/INDEX.md.
-- Run `um scan "<game>"`. It reports the engine and version, whether code is managed or native, anti-cheat,
+- Run `um scan "<game>"`. It reports the engine and version, whether code is managed or native,
   mod loaders already installed, save folders, ranked routes, and which playbook in
   `references/engines/` to read. Read that playbook.
 - Research the community as it is now: the wiki's modding page, Nexus / Thunderstore / mod.io / Workshop,
@@ -151,12 +148,6 @@ documented dead end saves the next agent hours.
 
 ## Hard rules
 - **Ownership.** Only mod games the user owns.
-- **Online play.** Stay in single-player/offline, or on servers the user controls. Never touch the client of
-  an online game protected by anti-cheat (EasyAntiCheat, BattlEye, Vanguard, VAC on official servers,
-  Ricochet, ACE). Never write cheats (aimbots, ESP, speedhacks) for multiplayer.
-- **No bypasses.** Never bypass anti-cheat, DRM or ownership checks. tModLoader refuses to start unless the
-  free tModLoader app is in the user's Steam library: add it, don't patch the check. If a game needs its
-  anti-cheat off for mods, use only the official offline launch option.
 - **No redistribution.** Don't ship game files, decompiled source or extracted assets. Ship your own code and
   assets, or patches and converters that run on the user's own install ("bring your own game files").
 - **Back up first.** Run `um backup` before changing saves, profiles or game folders. Keep the restore path
@@ -182,4 +173,4 @@ documented dead end saves the next agent hours.
 - `references/case-studies.md`: Terraria, AoE2 and Minecraft × GTA V end to end, every non-obvious fact.
 - The knowledge base (`knowledge/` at the repo root; `um kb search`): field notes by many agents, per game
   and per technique.
-- `references/safety.md`: the rules with their reasons, anti-cheat and legal hygiene.
+- `references/safety.md`: the rules with their reasons and legal hygiene.

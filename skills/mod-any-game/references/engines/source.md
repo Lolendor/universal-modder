@@ -11,7 +11,7 @@
   - VScript (Squirrel) in Portal 2, L4D2, TF2 and CS:GO-era games: `scripts/vscripts/*.nut`, entity
     I/O;
   - Garry's Mod: Lua addons (`lua/autorun/...`);
-  - SourceMod + Metamod:Source for **servers you run** (plugins in SourcePawn).
+  - SourceMod + Metamod:Source (plugins in SourcePawn).
 - **Code:** Source SDK 2013 (github.com/ValveSoftware/source-sdk-2013) builds your own mod (a new game
   folder under `sourcemods/`). It's the official, fully legal route for new mechanics in HL2-era games.
 - **Browse:** GCFScape / VPKEdit to open VPKs; Crowbar for models; BSPSource to decompile maps.
@@ -27,9 +27,5 @@
   textures, even collision. `um`'s authors used VRF to export CS2 map collision for a movement clone.
   Derived data stays out of git.
 
-## Rules
-- VAC: modified clients on VAC-secured servers get banned. Test with `-insecure` on a local listen server
-  and never inject into CS2/Dota/Deadlock/TF2 on official matchmaking.
-- The Workshop, maps, custom games and VScript are the sanctioned routes for the multiplayer titles.
 - Demos (`.dem`) are a great oracle for gameplay work. DemoFile.Net and the demoparser libraries extract
   per-tick state.

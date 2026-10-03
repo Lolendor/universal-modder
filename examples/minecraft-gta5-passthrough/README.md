@@ -118,20 +118,19 @@ Paths come from environment variables, with these defaults:
    - Put Fabric API in `<game dir>\mods`. `./gradle.sh install` builds the mod and copies it there too
      (`PASSTHROUGH_MC_DIR`).
 
-   For development, `./gradle.sh runClient` starts a dev client instead (game dir `mc\run` in the mirror, offline
-   account).
+   For development, `./gradle.sh runClient` starts a dev client instead (game dir `mc\run` in the mirror).
 3. **The GTA side**, from WSL:
    ```bash
    gta/fetch_deps.sh   # ScriptHookV SDK + ReShade headers into gta/third_party/, the runtime DLLs into third_party/runtime/
    gta/build.sh        # mirrors gta/ to <PASSTHROUGH_WIN_DIR>\gta and builds build\MCPassthrough.asi with MSVC
    gta/install.sh      # copies it all into the GTA V folder
    ```
-   `install.sh` adds `ScriptHookV.dll`, `dinput8.dll` (the ASI loader), `MCPassthrough.asi`, `args.txt`
-   (`-nobattleye -noBE`) and ReShade. ReShade goes in as `ReShade64.asi`, so the ASI loader loads it: GTA
+   `install.sh` adds `ScriptHookV.dll`, `dinput8.dll` (the ASI loader), `MCPassthrough.asi`
+   and ReShade. ReShade goes in as `ReShade64.asi`, so the ASI loader loads it: GTA
    loads the system `dxgi.dll` ahead of a proxy in its folder, so the usual `dxgi.dll` install never runs. It
    also writes `ReShade.ini` (if there is none), `ReShadePreset.ini`, and the effect in
    `reshade-shaders\Shaders\`.
-   - It stops rather than replace a `dinput8.dll`, `ReShade64.asi` or `args.txt` that isn't its own
+   - It stops rather than replace a `dinput8.dll` or `ReShade64.asi` that isn't its own
      (`FORCE=1` overrides).
    - `install.sh --remove` deletes exactly the files it adds.
    - `build.bat` also works from a Windows prompt, in a copy of `gta/` with `third_party/` fetched.
@@ -140,8 +139,7 @@ Paths come from environment variables, with these defaults:
    of field and heavy post effects blur GTA's picture but not Minecraft's.
 5. **Run.**
    - Start Minecraft with that profile. Leave its window open: it renders slowly when minimized.
-   - Start GTA V from Steam with BattlEye off. The `-nobattleye` in `args.txt` does it, or the BattlEye toggle
-     in the Rockstar Games Launcher settings. That also keeps GTA Online out.
+   - Start GTA V from Steam.
    - Pick Story Mode on the landing page yourself.
    - In story mode the plugin connects ("Minecraft passthrough connected"), sizes Minecraft's window to GTA's
      picture and starts sending the ground. The two can start in either order, because the plugin keeps
@@ -232,13 +230,6 @@ Your off hand holds explosive fireworks for the crossbow, and you get 64 arrows.
 
 ## Safety
 
-- **Story mode only; never GTA Online.** BattlEye protects GTA Online. This runs with BattlEye off, which also
-  keeps Online from starting, and ScriptHookV closes the game if it goes online anyway. Don't try to get a
-  modded game near Online.
-- **Never automate clicks on GTA's landing page while someone is at the keyboard.** During development a script
-  focused GTA and clicked Story Mode while the user was typing in another window. Their keystrokes landed in
-  GTA, which showed "attempting to access GTA Online servers with an altered version". ScriptHookV blocked it,
-  but don't risk it. Pick Story Mode by hand. `go.py` never clicks.
 - **The game folder.** `install.sh` lists what it adds, won't replace another mod's loader or ReShade, and
   `--remove` takes it all out again.
 - **Saves.** `go.py save` keeps your save files as `.bak` before it replaces them.

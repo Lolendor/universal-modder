@@ -2,7 +2,7 @@
 
 A tModLoader mod with five weapons, three enemies and a boss that aren't in vanilla Terraria. The
 bundled FLUX.1 [dev] drawings are converted into Terraria's frame layout with `um sprite`. It
-was ported from the mod behind the Terraria showcase videos (single player, tModLoader 2026.07 on
+was ported from the mod behind the Terraria showcase videos (tModLoader 2026.07 on
 Terraria 1.4.4); the scripted scenes, RL agent and in-game recorder were taken out, and the recorder
 and agent bridge are kept in `reference/` for what they teach.
 

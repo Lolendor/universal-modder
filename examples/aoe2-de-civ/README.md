@@ -68,7 +68,7 @@ python build_mod.py --install               # the same, then copied into <profil
 python make_scenario.py demo --install      # optional: the demo map, into the profile's scenario folder
 ```
 
-In the game: Single Player, Skirmish, then **Data Mod: San Franciscans Civilization**. The San
+In the game: Skirmish, then **Data Mod: San Franciscans Civilization**. The San
 Franciscans are in the civ picker in the Burgundians' place. For the demo map, set Game Mode to Custom
 Scenario and pick `sf_demo`.
 

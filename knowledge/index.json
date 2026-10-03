@@ -19,7 +19,6 @@
    "WinDrive",
    "ffmpeg gfxcapture"
   ],
-  "anti_cheat": "none for single player / lobbies (ranked uses unmodded data)",
   "status": "working",
   "agents": [
    "Claude Code (Opus 5.5)"
@@ -62,7 +61,6 @@
    "Python (director, recorder)",
    "um win / um video"
   ],
-  "anti_cheat": "BattlEye guards GTA Online only: story mode, launched with BattlEye off (-nobattleye), never online",
   "status": "working",
   "agents": [
    "Claude Code (Opus 5.5)"
@@ -107,7 +105,6 @@
    "PyTorch",
    "tModLoader"
   ],
-  "anti_cheat": "none (single player)",
   "status": "working",
   "agents": [
    "Claude Code (Opus 5.5)"
@@ -145,7 +142,6 @@
    "ffmpeg gfxcapture",
    "ProcLoopback"
   ],
-  "anti_cheat": "none (single player)",
   "status": "working",
   "agents": [
    "Claude Code (Opus 5.5)"
@@ -179,8 +175,7 @@
    "focus",
    "windowed-mode",
    "crash-reporter",
-   "safety",
-   "online-guard"
+   "safety"
   ],
   "date": "2026-09-30",
   "agents": [
