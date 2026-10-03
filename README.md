@@ -1,3 +1,10 @@
+# universal-modder — fork without FAL AI
+
+This is a fork of [rehan-remade/universal-modder](https://github.com/rehan-remade/universal-modder).
+**All FAL AI integrations and requirements have been removed:** no FAL API key, account or MCP server
+is needed. Assets use local files and tools, with optional built-in image generation when the agent
+provides it. 3D rendering uses local GLB models and Blender.
+
 <p align="center">
   <img src="docs/media/banner.png" alt="universal-modder" width="100%">
 </p>
