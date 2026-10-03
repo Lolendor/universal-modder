@@ -1,4 +1,4 @@
-// REFERENCE ONLY - not part of the FalArsenal build. It sits outside the mod folder on purpose
+// REFERENCE ONLY - not part of the ModArsenal build. It sits outside the mod folder on purpose
 // (tModLoader compiles every .cs file under a mod's folder) and doesn't need to compile as-is.
 //
 // The agent bridge from the project this example came from: a JSON-lines socket that let an outside

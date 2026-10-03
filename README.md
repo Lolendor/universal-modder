@@ -5,14 +5,12 @@
 <p align="center">
   <b>Skills, tools and a shared knowledge base that let any AI coding agent mod almost any PC game you own.</b><br>
   Works with Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot, OpenCode, or anything that reads <code>AGENTS.md</code>.<br>
-  The agent finds the game, works out the engine and the route, reads the real code, builds the mod, makes art, 3D and sound
-  with <a href="https://fal.ai">fal</a>, tests it in the running game, cuts the video, and writes down what it learned for the next agent.
+  The agent finds the game, works out the engine and the route, reads the real code, builds the mod, processes local assets, tests it in the running game, cuts the video, and writes down what it learned for the next agent.
 </p>
 
 <p align="center">
   <a href="#install"><img alt="any agent" src="https://img.shields.io/badge/agents-Claude%20Code%20·%20Codex%20·%20Cursor%20·%20Gemini%20·%20Copilot-B6FF3B?labelColor=0A0D12"></a>
   <a href="knowledge/INDEX.md"><img alt="knowledge base" src="https://img.shields.io/badge/knowledge%20base-field%20notes-B6FF3B?labelColor=0A0D12"></a>
-  <a href="https://fal.ai"><img alt="assets by fal" src="https://img.shields.io/badge/assets-fal-B6FF3B?labelColor=0A0D12"></a>
   <a href="LICENSE"><img alt="MIT" src="https://img.shields.io/badge/license-MIT-B6FF3B?labelColor=0A0D12"></a>
 </p>
 
@@ -22,37 +20,39 @@
 
 ## Install
 
-Pick your agent. Each gets the same skills (Agent Skills format), the fal MCP server, and the `um` CLI.
+This fork uses local assets and needs no asset-service API key or account.
+Pick your agent. Each gets the same skills (Agent Skills format) and the `um` CLI.
 
 | Agent | Install |
 |---|---|
-| **Claude Code** | `/plugin marketplace add rehan-remade/universal-modder`, then `/plugin install universal-modder@universal-modder` |
-| **Codex** | `codex plugin marketplace add rehan-remade/universal-modder`, then `codex plugin add universal-modder@universal-modder` |
-| **Gemini CLI** | `gemini extensions install https://github.com/rehan-remade/universal-modder` |
+| **Claude Code** | `/plugin marketplace add Lolendor/universal-modder`, then `/plugin install universal-modder@universal-modder` |
+| **Codex** | `codex plugin marketplace add Lolendor/universal-modder`, then `codex plugin add universal-modder@universal-modder` |
+| **Gemini CLI** | `gemini extensions install https://github.com/Lolendor/universal-modder` |
 | **VS Code / Copilot** | Enable `chat.plugins.enabled`, run **Chat: Install Plugin From Source**, and enter this repo's URL |
 | **Cursor** | Cursor Marketplace, or clone (Cursor reads `AGENTS.md` and `.cursor/mcp.json`) |
-| **Skills only** (any agent) | `npx skills add https://github.com/rehan-remade/universal-modder` |
-| **Anything else** | `git clone https://github.com/rehan-remade/universal-modder` and start your agent inside it |
+| **Skills only** (any agent) | `npx skills add https://github.com/Lolendor/universal-modder` |
+| **Anything else** | `git clone https://github.com/Lolendor/universal-modder` and start your agent inside it |
 
 Inside a clone, each agent finds the skills where it looks for them: `.agents/skills` (Codex and friends),
 `.claude/skills`, `.gemini/skills` and `.github/skills` all link to `skills/`. Instructions are in
-`AGENTS.md`, which `CLAUDE.md` and `GEMINI.md` point to. MCP config is in `.mcp.json`, `.codex/config.toml`,
-`.cursor/mcp.json` and `.vscode/mcp.json`.
+`AGENTS.md`, which `CLAUDE.md` and `GEMINI.md` point to. The agent MCP configurations are empty;
+no hosted asset server or authentication is configured.
 
 **The `um` CLI.** Plugin installs and clones put it on PATH. Anywhere else:
 ```bash
-uv tool install git+https://github.com/rehan-remade/universal-modder     # or: pipx install git+...
+uv tool install git+https://github.com/Lolendor/universal-modder     # or: pipx install git+...
 ```
-**For assets,** get a [fal API key](https://fal.ai/dashboard/keys). It powers both the fal MCP server and
-`um fal`:
-```bash
-export FAL_KEY=...
-```
+**Assets:** use your own files, the bundled example art, local procedural drawing, and Blender.
+An agent may use its built-in image-generation tool (including Codex) when its current session provides
+one, then process the saved image with `um sprite`. This is optional; the plugin does not add an image tool.
+There is no hosted generation client or automatic paid fallback. Images are not 3D meshes: use a local
+GLB model for `um render3d`. Audio can come from the game, your recordings, or licensed local tracks.
+
 You also need Python 3.10+ and ffmpeg. `uv` is recommended. Blender is needed for 3D → sprite renders.
 Windows games are driven natively or from WSL.
 
 ## Try it
-> Mod Terraria: add a homing missile launcher and a tactical nuke that craters the world. Make the sprites with fal.
+> Mod Terraria: add a homing missile launcher and a tactical nuke that craters the world. Use local sprites or the agent's available built-in image tool.
 
 > Make a new civilization for Age of Empires II with a unique unit rendered from 3D.
 
@@ -66,7 +66,7 @@ The agent starts with the **mod-any-game** skill and runs the same loop every ti
 3. set up a safe lab (saves backed up);
 4. read the actual code;
 5. build one working slice;
-6. generate assets;
+6. prepare assets locally;
 7. verify in the real game;
 8. record;
 9. package;
@@ -103,7 +103,7 @@ and an honest status and verification.
 | `mod-any-game` | The whole loop, hard safety rules, and **12 engine playbooks**: Unity, Unreal, .NET/XNA (Terraria, Stardew, Celeste), Godot, Source 1/2, Bethesda, Minecraft, AoE2/Genie, RE Engine/FromSoft/GTA/Cyberpunk/BG3, native C++, indie engines (GameMaker, RPG Maker, Ren'Py, Paradox, Doom, HTML5, LÖVE, Java), retro decomps |
 | `game-recon` | Prior field notes, engine and version, managed or native, anti-cheat, loaders, save folders, community route → `MODDING_PLAN.md` |
 | `reverse-engineering` | ILSpy / Cpp2IL / Vineflower / Ghidra and IDA over MCP / Cheat Engine / Frida / RenderDoc; reverse-engineer a file format and prove it with a round trip |
-| `fal-assets` | Sprites with real transparency, consistent variants, pixel art, seamless textures, PBR maps, image-to-3D, auto-rigging, SFX, music, voice, cutscene video |
+| `game-assets` | Local/procedural art, optional built-in image generation, local Blender models and audio; no service key |
 | `asset-pipeline` | Art → engine-exact frames: cutout, nearest-neighbour fit, palettes, sheets, team-colour masks, 3D → 8/16-heading sprites |
 | `game-automation` | Launch, screenshot (GPU-safe), click/type safely, windowed mode, crash-reporter cleanup, in-game agent bridges |
 | `showcase-video` | Record the window with only the game's audio, pick moments, cut a styled video from an EDL |
@@ -116,7 +116,6 @@ and an honest status and verification.
 | | |
 |---|---|
 | `um scan` | Find Steam/Epic/Xbox installs; fingerprint engine and version, .NET vs native, anti-cheat, installed loaders, save folders, ranked routes |
-| `um fal` | `sprite`, `image`, `edit`, `rmbg`, `pixelate`, `upscale`, `texture`, `pbr`, `model3d`, `rig`, `sfx`, `music`, `voice`, `video`, `run`, `search`, `schema`, `price`. Plain REST, with a manifest of every generation |
 | `um sprite` | `cutout`, `fit`, `pixelate`, `palette`, `sheet`, `slice`, `frames`, `team-mask`, `seamless`, `preview` |
 | `um render3d` | GLB → sprite frames from the game's camera (`aoe2`, `iso8`, `trueiso`, `topdown`, `side`, `turntable`) with Blender |
 | `um win` | `shot`, `record` (gfxcapture + process-loopback audio), `drive` (input that only reaches the game), `ps`, `kill`, `launch`, `reg` |
@@ -128,16 +127,22 @@ and an honest status and verification.
 Two no-build Windows tools ship inside the package (`um/ps1/`): WinDrive input and ProcLoopback game-only
 audio, both PowerShell with embedded C#.
 
-<p align="center"><img src="docs/media/pipeline.png" alt="3D route: fal concept to 3D to 16 AoE2 headings. 2D route: fal art to cutout to a 64x26 Terraria sprite in game." width="100%"></p>
+```mermaid
+flowchart LR
+    LocalArt[Local art or optional built-in image tool] --> Sprite[um sprite]
+    Sprite --> Game[Engine-ready assets]
+    LocalModel[Bundled or locally created GLB] --> Render[um render3d + Blender]
+    Render --> Game
+```
 
 ## Built with it
-- **[examples/terraria-tmodloader](examples/terraria-tmodloader)**: *Fal Arsenal* for tModLoader.
+- **[examples/terraria-tmodloader](examples/terraria-tmodloader)**: *Mod Arsenal* for tModLoader.
   - Weapons: a homing missile launcher, a tactical nuke (crater + mushroom cloud), a chain-lightning rifle, a
     black-hole gun and an orbital strike.
   - Three new enemies and a two-phase Drone Mothership boss.
-  - Every sprite came from fal.
+  - The bundled source drawings rebuild locally with `assets/make_art.sh`.
 - **[examples/aoe2-de-civ](examples/aoe2-de-civ)**: *San Franciscans* for Age of Empires II DE.
-  - A new civilization with a Robotaxi unique unit and Delivery Drones, rendered from fal image-to-3D models
+  - A new civilization with a Robotaxi unique unit and Delivery Drones, rendered from bundled local GLB models
     at AoE2's camera angle.
   - A Transamerica Pyramid wonder.
   - A reverse-engineered `.sld` sprite writer.
@@ -164,7 +169,11 @@ Full reasoning: [`skills/mod-any-game/references/safety.md`](skills/mod-any-game
 
 ## Credits
 - Built from real agent sessions modding Terraria, Age of Empires II and GTA V × Minecraft.
-- Assets: [fal](https://fal.ai) (GPT Image 2, Nano Banana 2, FLUX, Trellis 2, ElevenLabs...).
+- Fork maintained by Lolendor; original toolkit and examples by Rehan:
+  [upstream universal-modder](https://github.com/rehan-remade/universal-modder).
+- Bundled example art: FLUX.1 [dev] (Black Forest Labs) and TRELLIS (Microsoft), retained from upstream.
+  Rebuilding those assets uses local tools; replacement art can be hand-made or created with an available
+  built-in image tool. Preserve the original model/author credits and check their licenses when sharing.
 - Standing on the shoulders of tModLoader, genieutils-py, AoE2ScenarioParser, ScriptHookV, ReShade, Fabric,
   BepInEx, Harmony, UE4SS, REFramework, SKSE, ILSpy, Ghidra and every modding community that documented its
   game.

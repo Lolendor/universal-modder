@@ -5,7 +5,7 @@
     python build_mod.py --game "D:\\SteamLibrary\\steamapps\\common\\AoE2DE" --out /tmp/aoe2build
 
 It takes over the Burgundians' slot (36), built on the Britons' base tech tree:
-  * Robotaxi / Elite Robotaxi - unique Castle unit (fast self-driving car that rams), fal art -> 3D -> sprites
+  * Robotaxi / Elite Robotaxi - unique Castle unit (fast self-driving car that rams), local 3D models -> sprites
   * Delivery Drone - Archery Range unit from the Castle Age
   * Transamerica Pyramid wonder
   * bonuses: villagers work 10% faster ("hustle culture"), cavalry +10% speed ("autonomous"),

@@ -21,7 +21,7 @@ community loader. It is a free Steam app, id 1281930. Content is written in C# a
    straight into a world.
 4. Content: weapons as `ModItem` + `ModProjectile`, enemies as `ModNPC` with custom `AI()`, a boss with two
    phases, a boss bar, music and loot. A scripted showcase `ModSystem` spawns waves and runs the camera.
-5. Art: fal `flux/dev` with a Terraria-style prompt ("16-bit pixel art game sprite in the style of Terraria,
+5. Art: bundled FLUX.1 [dev] drawings with a Terraria-style prompt ("16-bit pixel art game sprite in the style of Terraria,
    crisp dark outline, limited palette, plain flat white background"). Then border flood-fill cutout, then a
    nearest-neighbour fit to each frame size (`um sprite cutout` / `fit` / `sheet --vertical`).
 6. Verify: the game's `client.log`, screenshots of the window, and a deterministic scripted scene.
@@ -65,8 +65,8 @@ community loader. It is a free Steam app, id 1281930. Content is written in C# a
    then changing stats, graphics and train location. Add unique techs with effects, bonuses, key-value
    strings, and a tech tree JSON.
 3. **Units:**
-   - fal concept art (white product render, saturated blue accents where player colour should go);
-   - fal Trellis image-to-3D → GLB;
+   - bundled concept art (white product render, saturated blue accents where player colour should go);
+   - bundled TRELLIS GLBs, or user-created Blender models;
    - Blender renders from AoE2's camera: orthographic, 30° elevation, 16 headings clockwise from east, plus
      a shadow-catcher pass (`um render3d --preset aoe2 --shadows`);
    - blue accents hue-masked into the player-colour layer (`um sprite team-mask`);

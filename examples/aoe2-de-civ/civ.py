@@ -13,7 +13,7 @@ string id N uses N (name), N + 1000 ("Create ..." / "Research ..."), N + 100000 
 
 MOD_NAME = "SanFranciscans"   # the mod's folder: <profile>/mods/local/<MOD_NAME>
 MOD_INFO = {"Author": "rehan", "Title": "San Franciscans Civilization",
-            "Description": "A new civilization: self-driving Robotaxis, Delivery Drones and the Transamerica Pyramid. Art generated with fal."}
+            "Description": "A new civilization: self-driving Robotaxis, Delivery Drones and the Transamerica Pyramid. Bundled original art processed locally."}
 
 NAME, NAME_STRING = "San Franciscans", 10399
 TAGLINE, DESC_STRING = "Tech Bro civilization", 120299   # the civ description (picker, tech tree) starts with the tagline

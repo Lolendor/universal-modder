@@ -12,7 +12,7 @@
   "tools": [
    "genieutils-py",
    "AoE2ScenarioParser",
-   "fal (flux/dev, trellis)",
+   "FLUX.1 [dev], TRELLIS (original art)",
    "Blender",
    "um render3d",
    "sld.py (custom)",
@@ -29,7 +29,7 @@
   ],
   "date": "2026-09-29",
   "links": [
-   "https://github.com/rehan-remade/universal-modder/tree/main/examples/aoe2-de-civ"
+   "https://github.com/Lolendor/universal-modder/tree/main/examples/aoe2-de-civ"
   ],
   "tags": [
    "civilization",
@@ -72,7 +72,7 @@
   ],
   "date": "2026-09-30",
   "links": [
-   "https://github.com/rehan-remade/universal-modder/tree/main/examples/minecraft-gta5-passthrough"
+   "https://github.com/Lolendor/universal-modder/tree/main/examples/minecraft-gta5-passthrough"
   ],
   "tags": [
    "mashup",
@@ -105,7 +105,6 @@
    "numba",
    "PufferLib 3",
    "PyTorch",
-   "fal serverless (training)",
    "tModLoader"
   ],
   "anti_cheat": "none (single player)",
@@ -129,9 +128,9 @@
   ]
  },
  {
-  "path": "games/terraria/fal-arsenal-tmodloader.md",
+  "path": "games/terraria/mod-arsenal-tmodloader.md",
   "kind": "game",
-  "title": "Fal Arsenal: missiles, a tactical nuke, new enemies and a boss for Terraria",
+  "title": "Mod Arsenal: missiles, a tactical nuke, new enemies and a boss for Terraria",
   "game": "Terraria",
   "games_also": [],
   "game_version": "Terraria 1.4.4.9 via tModLoader 2026.07 (GitHub build), Steam; vanilla 1.4.5.8 decompiled for reference",
@@ -141,7 +140,7 @@
   "tools": [
    "tModLoader",
    "ilspycmd",
-   "fal (flux/dev)",
+   "FLUX.1 [dev] (original art)",
    "um sprite",
    "ffmpeg gfxcapture",
    "ProcLoopback"
@@ -156,7 +155,7 @@
   ],
   "date": "2026-09-28",
   "links": [
-   "https://github.com/rehan-remade/universal-modder/tree/main/examples/terraria-tmodloader"
+   "https://github.com/Lolendor/universal-modder/tree/main/examples/terraria-tmodloader"
   ],
   "tags": [
    "weapons",

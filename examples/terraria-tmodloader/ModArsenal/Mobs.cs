@@ -6,7 +6,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Utilities;
 
-namespace FalArsenal
+namespace ModArsenal
 {
 	// Enemies that aren't in Terraria. Sprites face left, like vanilla NPC sheets: spriteDirection 1
 	// flips them to face right. Frames are stacked vertically; the game derives the frame height from
@@ -15,7 +15,7 @@ namespace FalArsenal
 	/// <summary>Circles above the player, strafing, and fires lasers.</summary>
 	public class ScrapDrone : ModNPC
 	{
-		public override string Texture => "FalArsenal/Assets/ScrapDrone";
+		public override string Texture => "ModArsenal/Assets/ScrapDrone";
 		public override void SetStaticDefaults() => Main.npcFrameCount[Type] = 2;
 
 		public override void SetDefaults()
@@ -66,7 +66,7 @@ namespace FalArsenal
 	/// <summary>A glowing slime (vanilla slime AI).</summary>
 	public class NeonSlime : ModNPC
 	{
-		public override string Texture => "FalArsenal/Assets/NeonSlime";
+		public override string Texture => "ModArsenal/Assets/NeonSlime";
 		public override void SetStaticDefaults() => Main.npcFrameCount[Type] = 2;
 
 		public override void SetDefaults()
@@ -94,7 +94,7 @@ namespace FalArsenal
 	/// AI (aiStyle 3) stops chasing on the surface in daytime: it wanders off and despawns.</summary>
 	public class MechWalker : ModNPC
 	{
-		public override string Texture => "FalArsenal/Assets/MechWalker";
+		public override string Texture => "ModArsenal/Assets/MechWalker";
 		public override void SetStaticDefaults() => Main.npcFrameCount[Type] = 3;
 
 		public override void SetDefaults()

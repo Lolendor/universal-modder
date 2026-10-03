@@ -1,4 +1,4 @@
-"""fal wonder art -> the wonder sprite of civ.WONDER (b_sf_wonder_x1.sld), fitted to the 5x5-tile footprint.
+"""local wonder art -> the wonder sprite of civ.WONDER (b_sf_wonder_x1.sld), fitted to the 5x5-tile footprint.
 
     python make_wonder.py                         # assets/gen/wonder.* -> build/graphics/b_sf_wonder_x1.sld
     python make_wonder.py --src my_wonder.png --out build

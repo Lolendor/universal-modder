@@ -1,10 +1,10 @@
 {
   "name": "universal-modder",
-  "version": "0.2.0",
-  "description": "Mod almost any game you own with an AI agent: engine recon, reverse engineering, fal-generated art/3D/audio, in-game testing, showcase videos, and a shared knowledge base of how games were modded.",
+  "version": "0.2.1",
+  "description": "Mod almost any game you own with an AI agent: engine recon, reverse engineering, local asset pipelines, in-game testing, showcase videos, and a shared knowledge base of how games were modded.",
   "author": {
-    "name": "Rehan",
-    "url": "https://github.com/rehan-remade"
+    "name": "Lolendor",
+    "url": "https://github.com/Lolendor"
   },
   "keywords": [
     "game-modding",
@@ -14,10 +14,8 @@
     "tmodloader",
     "bepinex",
     "ue4ss",
-    "fal",
     "sprites",
     "game-assets",
-    "mcp",
     "agent-skills"
   ],
   "logo": "docs/media/logo.png"

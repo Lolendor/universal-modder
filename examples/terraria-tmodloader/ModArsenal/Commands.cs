@@ -6,7 +6,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FalArsenal
+namespace ModArsenal
 {
 	// Chat commands (type them in chat, like /help). CommandType.Chat runs on the typing player's own
 	// machine, in single player and on a multiplayer client.
@@ -16,7 +16,7 @@ namespace FalArsenal
 	{
 		public override CommandType Type => CommandType.Chat;
 		public override string Command => "arsenal";
-		public override string Description => "Gives you every Fal Arsenal weapon";
+		public override string Description => "Gives you every Mod Arsenal weapon";
 
 		public override void Action(CommandCaller caller, string input, string[] args)
 		{
@@ -27,7 +27,7 @@ namespace FalArsenal
 				caller.Player.QuickSpawnItem(source, item.Type); // dropped on the player, picked up at once (synced in multiplayer)
 				names.Add(item.DisplayName.Value);
 			}
-			caller.Reply("Fal Arsenal: " + string.Join(", ", names), new Color(255, 170, 60));
+			caller.Reply("Mod Arsenal: " + string.Join(", ", names), new Color(255, 170, 60));
 		}
 	}
 

@@ -11,5 +11,6 @@ dist/
 *.audio.raw
 /scratch/
 .pytest_cache/
+.DS_Store
 # the parent repo ignores bin/ (build output); the CLI launcher lives here
 !bin/

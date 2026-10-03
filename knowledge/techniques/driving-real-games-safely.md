@@ -54,4 +54,4 @@ Whenever the agent sends input to a real game window.
 ## Seen in
 - [Minecraft inside GTA V](../games/gta-v/minecraft-passthrough.md)
 - [San Franciscans (AoE2)](../games/age-of-empires-ii-de/san-franciscans-civ.md)
-- [Fal Arsenal (Terraria)](../games/terraria/fal-arsenal-tmodloader.md)
+- [Mod Arsenal (Terraria)](../games/terraria/mod-arsenal-tmodloader.md)

@@ -15,21 +15,19 @@ repo, they almost always want to **mod a game**, or to learn how a game was modd
 ## Tools
 - **`bin/um`** is the Python CLI, and it sets itself up with `uv`.
   - Put it on PATH: `export PATH="$PWD/bin:$PATH"`, or install it anywhere with
-    `uv tool install git+https://github.com/rehan-remade/universal-modder`.
+    `uv tool install git+https://github.com/Lolendor/universal-modder`.
   - Every group has `--help`:
     - `scan`: installed games, engine, anti-cheat, loaders, saves, routes
-    - `fal`: sprites, textures, PBR, 3D, rigs, SFX, music, voice, video via fal's REST API
     - `sprite` / `render3d`: art → engine-ready frames
     - `win`: launch, screenshot, input, record on Windows (also from WSL)
     - `video`: contact sheets and EDL showcase edits
     - `backup`: snapshot and restore saves
     - `publish`: pre-release lint
     - `kb`: the knowledge base
-- **fal MCP server:** `https://mcp.fal.ai/mcp` with header `Authorization: Bearer $FAL_KEY`.
-  - It's pre-configured per agent: `.mcp.json` (Claude Code), `.codex/config.toml` (Codex),
-    `.cursor/mcp.json` (Cursor), `.vscode/mcp.json` (VS Code / Copilot), `gemini-extension.json`
-    (Gemini CLI).
-  - No MCP? `um fal` does the same over REST.
+- **Assets:** use local files, procedural drawing, Blender, and the **game-assets** skill. An agent
+  may use its built-in image-generation tool if the current session provides one (including Codex),
+  then process the saved image locally. Image generation is optional and does not produce 3D meshes.
+  No asset-service key, hosted MCP server or separately billed generation API is required.
 - **Skills** (`skills/*/SKILL.md`, Agent Skills format) are also linked where each agent looks for them:
   `.agents/skills` (Codex and others), `.claude/skills`, `.gemini/skills`, `.github/skills`.
 - **Engine playbooks:** `skills/mod-any-game/references/engines/`.

@@ -8,7 +8,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FalArsenal
+namespace ModArsenal
 {
 	/// <summary>
 	/// A boss that isn't in Terraria. Phase 1: circles high above the player, launches Scrap Drones
@@ -18,7 +18,7 @@ namespace FalArsenal
 	/// </summary>
 	public class DroneMothership : ModNPC
 	{
-		public override string Texture => "FalArsenal/Assets/DroneMothership";
+		public override string Texture => "ModArsenal/Assets/DroneMothership";
 		bool Phase2 => NPC.life < NPC.lifeMax / 2;
 
 		public override void SetStaticDefaults()
@@ -133,7 +133,7 @@ namespace FalArsenal
 	/// <summary>The Mothership's phase-2 rocket: steers toward the nearest player.</summary>
 	public class HostileRocket : ModProjectile
 	{
-		public override string Texture => "FalArsenal/Assets/HomingMissile";
+		public override string Texture => "ModArsenal/Assets/HomingMissile";
 
 		public override void SetDefaults()
 		{

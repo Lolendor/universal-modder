@@ -4,7 +4,7 @@
     um render3d model.glb out/ --preset side --canvas 128 --length 110            # platformer: facing right + left
     um render3d model.glb out/ --preset iso8 --canvas 256x256 --length 150 --engine eevee
 
-This is how the AoE2 San Franciscans units were made: fal concept art -> `um fal model3d` (image-to-3D)
+This is how the AoE2 San Franciscans units were made: bundled GLB models
 -> these renders -> the engine's sprite format. Rendering from 3D keeps every facing and frame consistent,
 which per-frame image generation can't. Presets (camera elevation, headings, direction order):
   aoe2      ortho 30 deg, 16 headings clockwise from east (AoE2 DE / Genie unit order)

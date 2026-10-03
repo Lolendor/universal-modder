@@ -2,7 +2,7 @@
 
     um kb search "unreal pak mod"               # prior art before you start (local repo, or synced from GitHub)
     um kb search terraria --route loader-api    # filter by game / engine / route
-    um kb show games/terraria/fal-arsenal.md
+    um kb show games/terraria/mod-arsenal-tmodloader.md
     um kb new --game "Hades II" --title "A new boon god" --from-scan "hades"   # scaffold a note, pre-filled
     um kb check knowledge/games/hades-ii/new-boon-god.md                       # validate before a PR
     um kb index                                  # regenerate knowledge/INDEX.md + index.json
@@ -27,7 +27,7 @@ from pathlib import Path
 
 from um.common import data_dir, die
 
-REPO = os.environ.get("UM_KB_REPO", "rehan-remade/universal-modder")
+REPO = os.environ.get("UM_KB_REPO", "Lolendor/universal-modder")
 BRANCH = os.environ.get("UM_KB_BRANCH", "main")
 ROUTES = ["data", "asset-only", "loader-api", "managed-patch", "native-hook", "reimplementation", "decomp-recomp",
           "passthrough", "emulator", "other"]

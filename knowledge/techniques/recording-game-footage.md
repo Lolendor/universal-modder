@@ -46,6 +46,6 @@ Showcase videos, bug evidence, and oracles that need to see motion.
    first frame. Account for it in the mux, and measure once per machine.
 
 ## Seen in
-- [Fal Arsenal (Terraria)](../games/terraria/fal-arsenal-tmodloader.md)
+- [Mod Arsenal (Terraria)](../games/terraria/mod-arsenal-tmodloader.md)
 - [San Franciscans (AoE2)](../games/age-of-empires-ii-de/san-franciscans-civ.md)
 - [Minecraft inside GTA V](../games/gta-v/minecraft-passthrough.md)

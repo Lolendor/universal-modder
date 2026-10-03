@@ -16,7 +16,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 DEFAULT_BUILD = HERE / "build"      # graphics/ (sprites in), <ModName>/ + ids.json (out)
-ASSETS = HERE / "assets" / "gen"    # fal art: concepts, GLBs, icons, emblem, wonder
+ASSETS = HERE / "assets" / "gen"    # local art: concepts, GLBs, icons, emblem, wonder
 APPID = 813780                      # AoE2 DE on Steam
 DAT = "resources/_common/dat/empires2_x2_p1.dat"
 
@@ -34,11 +34,11 @@ def to_posix(p):
 
 
 def asset(name):
-    """assets/gen/<name>.png|.jpg|.jpeg|.webp, the newest if there are several (fal returns JPEG or PNG
-    depending on the model, so a regenerated file may come back with another extension)."""
+    """assets/gen/<name>.png|.jpg|.jpeg|.webp, the newest if there are several.
+    Local art can be supplied in any of these formats."""
     found = [p for ext in (".png", ".jpg", ".jpeg", ".webp") for p in [ASSETS / (name + ext)] if p.exists()]
     if not found:
-        sys.exit(f"missing art: {ASSETS / name}.png/.jpg (assets/gen.sh makes it, or add your own)")
+        sys.exit(f"missing art: {ASSETS / name}.png/.jpg (add a local image under this name in assets/gen/)")
     return max(found, key=lambda p: p.stat().st_mtime)
 
 

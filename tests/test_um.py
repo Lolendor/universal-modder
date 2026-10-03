@@ -1,4 +1,4 @@
-"""Offline tests for the pieces that don't need a game, a GPU or a fal key.
+"""Offline tests for the pieces that don't need a game, a GPU or an asset-service key.
 
     uv run --with pytest pytest -q
 """
@@ -13,7 +13,7 @@ from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from um import fal, publish, scan, sprite, video  # noqa: E402
+from um import publish, scan, sprite, video  # noqa: E402
 
 
 # --------------------------------------------------------------------------- scan
@@ -169,20 +169,11 @@ def test_seamless_edges_match():
     assert before > 200 and after < 12
 
 
-# --------------------------------------------------------------------------- fal (offline parts)
-
-def test_kv_and_urls(tmp_path):
-    assert fal._kv(["prompt=a cat", "num_images:=2", "flag:=true"]) == {"prompt": "a cat", "num_images": 2, "flag": True}
-    res = {"images": [{"url": "https://v3.fal.media/a.png", "content_type": "image/png"}, {"url": "https://v3.fal.media/b.png"}],
-           "mask_image": {"url": "https://v3.fal.media/m.png"}}
-    assert [u for _, u, _ in fal._urls_in(res)] == ["https://v3.fal.media/a.png", "https://v3.fal.media/b.png", "https://v3.fal.media/m.png"]
-
-
 # --------------------------------------------------------------------------- publish
 
 def test_publish_check(tmp_path, capsys):
     # fixtures assembled at runtime so this file doesn't trip the toolkit's own publish check
-    fake_key = "FAL" + "_KEY=" + "abcdefghijklmnopqrstuvwxyz0123"
+    fake_key = "TEST_API" + "_KEY=" + "abcdefghijklmnopqrstuvwxyz0123"
     ghidra_name = "FUN" + "_00401000"
     make(tmp_path / "mod", {"src/Mod.cs": f"int {ghidra_name}();\n// " + "Decompiled with ILSpy", "README.md": "My mod, built with dnSpy notes",
                             "config.txt": fake_key})
@@ -190,21 +181,22 @@ def test_publish_check(tmp_path, capsys):
     (tmp_path / "mod" / "copied.bin").write_bytes(b"x" * 4096)
     assert publish.check(str(tmp_path / "mod"), str(tmp_path / "game")) == 1
     out = capsys.readouterr().out
-    assert "game file copied verbatim" in out and "FAL_KEY assignment" in out and "Ghidra auto-name" in out
+    assert "game file copied verbatim" in out and "credential assignment" in out and "Ghidra auto-name" in out
     assert "decompiler header x1 in src/Mod.cs" in out and "README.md" not in out.split("decompiler header")[-1].split("\n")[0]
 
 
 # --------------------------------------------------------------------------- video
 
 @pytest.mark.skipif(subprocess.run(["which", "ffmpeg"], capture_output=True).returncode, reason="needs ffmpeg")
-def test_compile_small_edl(tmp_path):
+@pytest.mark.parametrize("transition_types", [("fade", "cut"), ("cut", "fade")])
+def test_compile_small_edl(tmp_path, transition_types):
     for i, color in enumerate(["red", "blue"]):
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", f"testsrc2=s=640x360:d=3:r=30", "-f", "lavfi", "-i", "sine=f=440:d=3",
                         "-shortest", str(tmp_path / f"c{i}.mp4")], check=True)
     edl = {"size": [640, 360], "fps": 30, "bpm": 120, "beat_lock": True, "transition": {"type": "cut"},
            "segments": [{"clip": "c0.mp4", "in": 0, "beats": 4, "hook": "Hello"},
-                        {"clip": "c1.mp4", "in": 0.5, "beats": 4, "title": "A title", "credit": "@someone", "transition": {"type": "fade", "duration": 0.3}},
-                        {"card": {"title": "The end"}, "dur": 1.5}]}
+                        {"clip": "c1.mp4", "in": 0.5, "beats": 4, "title": "A title", "credit": "@someone", "transition": {"type": transition_types[0], "duration": 0.3}},
+                        {"card": {"title": "The end"}, "dur": 1.5, "transition": {"type": transition_types[1], "duration": 0.3}}]}
     (tmp_path / "edl.json").write_text(json.dumps(edl))
     video.compile_edl(tmp_path / "edl.json", str(tmp_path / "out.mp4"))
     info = video.probe(tmp_path / "out.mp4")
@@ -254,6 +246,6 @@ def test_kb_check_rejects_secrets_and_dumps(tmp_path):
     note = tmp_path / "n.md"
     code = "\n".join(f"int x{i} = {i};" for i in range(160))
     note.write_text("---\nkind: technique\ntitle: t\ntags: [x]\ndate: 2026-09-30\nagents: [a]\n---\n# t\n"
-                    f"```c\n{code}\n```\n" + "FAL" + "_KEY=abcdefghijklmnopqrstuvwxyz0123\n")
+                    f"```c\n{code}\n```\n" + "TEST_API" + "_KEY=abcdefghijklmnopqrstuvwxyz0123\n")
     fails, _ = kb.check_note(note)
-    assert any("code block" in f for f in fails) and any("FAL_KEY" in f for f in fails)
+    assert any("code block" in f for f in fails) and any("credential assignment" in f for f in fails)

@@ -1,4 +1,4 @@
-Weapons, enemies and a boss that aren't in vanilla Terraria, with sprites generated with fal (flux/dev).
+Weapons, enemies and a boss that aren't in vanilla Terraria, with bundled original sprites processed locally.
 
 Weapons: Homing Missile Launcher, Tactical Nuke, Tesla Rifle, Singularity Launcher, Orbital Strike.
 Enemies: Scrap Drone, Neon Slime, Mech Walker (surface). Boss: Drone Mothership.

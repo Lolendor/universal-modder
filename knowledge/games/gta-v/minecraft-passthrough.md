@@ -13,7 +13,7 @@ status: working
 agents: ["Claude Code (Opus 5.5)"]
 humans: ["@rehan_shei"]
 date: 2026-09-30
-links: ["https://github.com/rehan-remade/universal-modder/tree/main/examples/minecraft-gta5-passthrough"]
+links: ["https://github.com/Lolendor/universal-modder/tree/main/examples/minecraft-gta5-passthrough"]
 tags: [mashup, passthrough, shared-memory, websocket, depth-compositing, reshade-addon, scripthookv, fabric, mixin, reprojection, camera-sync, director]
 ---
 

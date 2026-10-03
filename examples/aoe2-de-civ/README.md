@@ -1,6 +1,6 @@
 # Age of Empires II DE: a new civilization
 
-The San Franciscans: a complete civilization for Age of Empires II: Definitive Edition, with fal-generated
+The San Franciscans: a complete civilization for Age of Empires II: Definitive Edition, with bundled original
 art rendered into the game's own sprite format and a data mod built with genieutils-py. It was tested
 in game (DE, September 2026), and it is meant as a template for your own civ.
 
@@ -18,10 +18,7 @@ skirmish lobby, so the stock game is untouched otherwise.
 ## Pipeline
 
 ```
-fal concept art (FLUX dev: white background, blue trim = player colour)      assets/gen.sh
-      |  um fal model3d
-      v
-textured 3D model (Trellis)                                                   assets/gen/*.glb
+bundled or user-created textured GLB models                                  assets/gen/*.glb
       |  um render3d --preset aoe2: ortho 30 deg, 16 headings, shadow pass    make_sprites.py render
       v
 PNG frames per animation and heading                                          build/frames/
@@ -36,7 +33,7 @@ data mod: .dat + civilizations.json + tech tree + strings + icons             bu
 <profile>/mods/local/SanFranciscans  ->  skirmish lobby: Data Mod dropdown
 ```
 
-The wonder is a single frame, so it skips the 3D step: fal paints it in AoE2's projection and
+The wonder is a single frame, so it skips the 3D step: the local drawing uses AoE2's projection and
 `make_wonder.py` fits it to the 5x5-tile footprint.
 
 ## Files
@@ -50,7 +47,6 @@ The wonder is a single frame, so it skips the 3D step: fal paints it in AoE2's p
 | `make_wonder.py` | the wonder art to `.sld`, fitted to the footprint |
 | `make_scenario.py` | test and demo scenarios (AoE2ScenarioParser) |
 | `aoe2paths.py` | finds the game install and your profile folder (Windows, WSL, Linux/Proton) |
-| `assets/gen.sh` | the fal prompts, run with `um fal` |
 | `assets/gen/` | the art the mod shipped with: unit concepts, the two GLBs, portraits, emblem, wonder |
 | `demo_notes.md` | how the demo video was recorded and cut with `um win` and `um video` |
 
@@ -97,10 +93,11 @@ back as soon as the mod isn't picked in the lobby.
    (effect commands plus their description lines), `UNITS` (the first is the unique unit) and
    `UNIQUE_TECHS` (Castle Age, Imperial Age). Each unit names a stock `template` unit and only the
    stats you give change. New string ids must be unused in the stock tables.
-2. **Art.** Edit the prompts in `assets/gen.sh` and run it (needs `FAL_KEY`), or put your own files in
-   `assets/gen/` under the names `civ.py` uses (`.png` or `.jpg`; the newest wins). You need a concept image
-   per unit on white with the player-colour parts in saturated blue, a portrait per unit, a round emblem
-   on white, and the wonder on white in AoE2's three-quarter view.
+2. **Art.** Use the bundled files or put your own files in `assets/gen/` under the names `civ.py` uses.
+   Each unit needs a textured `.glb` mesh exported from Blender or supplied locally, with player-colour
+   parts in saturated blue. Images alone cannot replace the mesh. For 2D art use PNG/JPEG/WebP (the newest
+   wins): a portrait per unit, a round emblem on white, and the wonder in AoE2's three-quarter view.
+   Draw locally or use an available built-in image tool; no asset-service key is required.
 3. **Sprites.** `python make_sprites.py all <unit>`, then open `build/previews/<unit>_sheet.png`: one row
    per animation, 16 headings starting east and turning clockwise, player colour shown red. If the nose
    doesn't follow the headings, change `render.forward_yaw`. If the size is off next to stock units,
@@ -224,8 +221,9 @@ original renders gives the same `.sld` files byte for byte, and `make_scenario.p
   and writes the `.dat`.
 - [AoE2ScenarioParser](https://github.com/KSneijders/AoE2ScenarioParser) by Kerwin Sneijders (MIT): the
   scenarios.
-- Art generated with [fal](https://fal.ai): FLUX.1 [dev] by Black Forest Labs (`fal-ai/flux/dev`) for the
-  concepts, portraits, emblem and wonder; TRELLIS by Microsoft (`fal-ai/trellis`) for the shipped 3D
-  models. `assets/gen.sh` regenerates them with TRELLIS 2 (`fal-ai/trellis-2`).
+- Bundled original art from Rehan's upstream example: FLUX.1 [dev] by Black Forest Labs for the
+  concepts, portraits, emblem and wonder; TRELLIS by Microsoft for the shipped 3D models. This fork
+  consumes those local files. Create replacement meshes in Blender and check asset/model licenses
+  before redistributing or using the art commercially.
 - Rendered with Blender (Cycles).
 - Age of Empires II: Definitive Edition belongs to Microsoft. This is a fan mod.

@@ -10,7 +10,7 @@ front matter. Agents write them, and pull requests review them. It works like a 
 agents: the exact build that worked, what the engine really does, how it was verified, and the gotchas that
 cost hours.
 
-`um` lives at `bin/um` in the repo. Anywhere else: `uv tool install git+https://github.com/rehan-remade/universal-modder`.
+`um` lives at `bin/um` in the repo. Anywhere else: `uv tool install git+https://github.com/Lolendor/universal-modder`.
 
 ## Before you start: search
 ```bash

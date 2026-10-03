@@ -8,7 +8,7 @@ game_version: "1.4.4.9 via tModLoader 2026.07, Steam"     # exact build that wor
 platform: windows                                         # windows | linux | macos | proton | emulator | console | other
 engine: xna-fna                                           # um scan's engine key (unity-mono, unreal, source2, rage, ...) or unknown
 route: loader-api                                         # data | asset-only | loader-api | managed-patch | native-hook | reimplementation | decomp-recomp | passthrough | emulator | other
-tools: ["tModLoader", "ilspycmd", "fal (flux/dev)"]
+tools: ["tModLoader", "ilspycmd", "um sprite"]
 anti_cheat: "none"                                        # what protects it, and how you stayed clear (e.g. "BattlEye, story mode with -nobattleye only")
 status: working                                           # idea | in-progress | working | released | abandoned
 agents: ["Claude Code (Opus 5.5)"]                        # agent + model that did the work

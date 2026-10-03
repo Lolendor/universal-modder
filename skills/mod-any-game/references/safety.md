@@ -36,7 +36,7 @@ legal advice. When a game's EULA or mod policy matters, read it (search "<publis
 
   `um publish check --game <install>` catches the obvious cases.
 - **Do publish:**
-  - your code and your assets (fal output is yours to use under fal's terms; check the model's license for
+  - your code and your assets (check source licenses and any generation tool's terms for
     commercial use);
   - patches, diffs, and converters or installers that transform the user's own files at install time.
 - Credit loaders, libraries and references, and disclose AI use honestly. Communities react badly to

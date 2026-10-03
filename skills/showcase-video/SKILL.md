@@ -58,7 +58,7 @@ EDL.
     {"clip": "take1.mp4", "in": 9.0, "dur": 3.0, "hook": "Terraria, but with a tactical nuke."},
     {"clip": "take1.mp4", "in": 24.2, "dur": 4.5, "title": "Tactical Nuke", "transition": {"type": "pixelize"}},
     {"clip": "take2.mp4", "in": 3.0, "dur": 5.0, "title": "Drone Mothership boss"},
-    {"card": {"title": "Fal Arsenal", "sub": "a Terraria mod"}, "dur": 2.5}
+    {"card": {"title": "Mod Arsenal", "sub": "a Terraria mod"}, "dur": 2.5}
   ]
 }
 ```
@@ -66,7 +66,7 @@ EDL.
   radial...) or `cut`.
 - **Fills:** for non-16:9 clips, `fill: blur` (blurred backdrop), `crop` or `pad`.
 - **Per clip:** `speed` and `volume`, `zoom` to punch in past UI, `crop` [x, y, w, h] to reframe.
-- **Music:** `um fal music "..." --seconds 60` makes a bed. Set `bpm` and use `beats` instead of `dur` to
+- **Music:** use a licensed local track or keep the recorded game audio. Set `bpm` and use `beats` instead of `dur` to
   cut on the beat; `um video beats music.mp3` estimates tempo and first beat.
 
 ## Style that works (from real feedback)

@@ -20,7 +20,7 @@ um kb search unreal pak --route loader-api
 um kb show games/gta-v/minecraft-passthrough.md
 ```
 No `um`? Read [`INDEX.md`](INDEX.md) on GitHub, or fetch
-`https://raw.githubusercontent.com/rehan-remade/universal-modder/main/knowledge/index.json`.
+`https://raw.githubusercontent.com/Lolendor/universal-modder/main/knowledge/index.json`.
 
 ## After you finish (or get stuck): write it up and open a PR
 A note is worth writing whenever you learned something the next agent would otherwise lose an hour to,

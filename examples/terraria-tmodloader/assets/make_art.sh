@@ -1,59 +1,56 @@
 #!/usr/bin/env bash
-# Rebuilds FalArsenal/Assets/*.png and FalArsenal/icon.png from fal-generated art, with the repo's CLI.
-#
-#   ./make_art.sh                   # build the sprites; raw art missing from gen/ is generated (FAL_KEY)
-#   GEN=~/my-art ./make_art.sh      # raw art somewhere else; OUT=... / ICON=... redirect the results
-#
-# 1. fal flux/dev draws each object on a flat white background -> gen/<name>.png (1024x1024). The art
-#    this mod shipped with is in gen/ as .jpg (flux/dev's default format), so nothing is generated
-#    unless you delete a file: there is no fixed seed, so a new call draws something new.
-# 2. `um sprite` cuts the background out with a flood fill from the border (interior whites like eyes
-#    survive), trims, and scales once with nearest neighbour into the frame sizes the mod uses. Items
-#    point right, NPC sprites face left, NPC frames are stacked vertically (the game divides the texture
-#    height by Main.npcFrameCount, so any consistent frame size works).
+# Rebuild ModArsenal/Assets/*.png and the icon from local source images with the repo CLI.
+#   ./make_art.sh                  # use the bundled assets/gen/ drawings
+#   GEN=~/my-art ./make_art.sh     # use your own art; OUT=... / ICON=... redirect results
+# No account, network generation or asset-service key is required.
+# Cutout preserves interior whites; nearest-neighbour fitting matches the game's frame layout.
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT="$(cd "$HERE/../../.." && pwd)"   # universal-modder/
 GEN="${GEN:-$HERE/gen}"
-OUT="${OUT:-$HERE/../FalArsenal/Assets}"
-ICON="${ICON:-$HERE/../FalArsenal/icon.png}"
+OUT="${OUT:-$HERE/../ModArsenal/Assets}"
+ICON="${ICON:-$HERE/../ModArsenal/icon.png}"
 T="$(mktemp -d)"
 trap 'rm -rf "$T"' EXIT
-mkdir -p "$GEN" "$OUT"
 
 um() { "$ROOT/bin/um" "$@"; }
 q() { um "$@" >/dev/null; }   # intermediate steps: quiet
 # Python with Pillow, for the two steps um has no command for (um's own environment when uv is around)
-py() { if command -v uv >/dev/null 2>&1; then uv run --quiet --project "$ROOT" python - "$@"; else python3 - "$@"; fi; }
+py() { if command -v uv >/dev/null 2>&1 && [ -z "${UM_NO_UV:-}" ]; then uv run --quiet --project "$ROOT" python - "$@"; else python3 - "$@"; fi; }
 
-# ------------------------------------------------------------------ 1. raw art: fal flux/dev
+# ------------------------------------------------------------------ 1. required local source art
 
 STYLE="16-bit pixel art game sprite in the style of Terraria, crisp dark outline, limited palette, centered, plain flat white background, no shadow, no text"
 
-raw() { local f; for f in "$GEN/$1.png" "$GEN/$1.jpg"; do [ -f "$f" ] && { echo "$f"; return 0; }; done; return 1; }
+raw() { local f; for f in "$GEN/$1.png" "$GEN/$1.jpg" "$GEN/$1.jpeg" "$GEN/$1.webp"; do [ -f "$f" ] && { echo "$f"; return 0; }; done; return 1; }
 
-gen() {   # gen <name> "<what to draw>"
-  raw "$1" >/dev/null && return
-  # `um fal run` sends exactly these inputs (the image recipe adds fields meant for its default model)
-  um fal run fal-ai/flux/dev "prompt=$2. $STYLE" image_size=square_hd num_images:=1 num_inference_steps:=40 \
-    output_format=png --out "$GEN" --name "$1"
+missing=0
+require_art() {   # filename and a suggested prompt for drawing it yourself
+  if ! raw "$1" >/dev/null; then
+    printf 'Missing local art: %s/%s.png/.jpg/.jpeg/.webp\n' "$GEN" "$1" >&2
+    printf 'Create it locally or with an available built-in image tool: %s. %s\n' "$2" "$STYLE" >&2
+    missing=1
+  fi
 }
 
-gen missile_launcher "a military shoulder-mounted rocket launcher bazooka seen from the side pointing right, olive green metal tube with yellow and black hazard stripes, grip and scope"
-gen missile "a single small guided missile seen from the side pointing right, red nose cone, white and grey body, small tail fins, flame at the back"
-gen nuke "a large nuclear bomb warhead pointing straight down, dark olive green body with a yellow radiation trefoil symbol, tail fins at the top"
-gen tesla_rifle "a chunky handheld sci-fi tesla gun, perfectly horizontal side view with the muzzle pointing right, thick copper coils around the barrel crackling with electric blue sparks, glowing cyan energy cell, dark steel body and grip"
-gen singularity_launcher "a handheld sci-fi black hole blaster gun, perfectly horizontal side view with the muzzle pointing right, long dark purple and black metal barrel, a glowing violet energy orb in a glass chamber at the back, pistol grip underneath"
-gen orbital_remote "a handheld orbital strike laser designator remote control, dark grey metal with a long antenna, a big red button and a small glowing screen"
-gen scrap_drone "a small hovering robot drone enemy seen from the side, rusty grey metal body, one big glowing red eye lens, two small spinning rotors on top, antenna"
-gen neon_slime "a cute glowing cyan neon slime blob enemy with glowing circuit board lines inside it, two black eyes, a small antenna on top"
-gen mech_walker "a small bipedal walking robot goblin enemy seen from the side facing left, rusty orange metal body, stubby legs mid-stride, one glowing green eye, claw arms"
-gen mothership "a huge flying mechanical drone mothership boss seen from the side, wide saucer-like hull of rusty grey armor plates, one giant glowing red core eye on its underside, antennas, small turrets and blinking landing lights"
+require_art missile_launcher "a military shoulder-mounted rocket launcher bazooka seen from the side pointing right, olive green metal tube with yellow and black hazard stripes, grip and scope"
+require_art missile "a single small guided missile seen from the side pointing right, red nose cone, white and grey body, small tail fins, flame at the back"
+require_art nuke "a large nuclear bomb warhead pointing straight down, dark olive green body with a yellow radiation trefoil symbol, tail fins at the top"
+require_art tesla_rifle "a chunky handheld sci-fi tesla gun, perfectly horizontal side view with the muzzle pointing right, thick copper coils around the barrel crackling with electric blue sparks, glowing cyan energy cell, dark steel body and grip"
+require_art singularity_launcher "a handheld sci-fi black hole blaster gun, perfectly horizontal side view with the muzzle pointing right, long dark purple and black metal barrel, a glowing violet energy orb in a glass chamber at the back, pistol grip underneath"
+require_art orbital_remote "a handheld orbital strike laser designator remote control, dark grey metal with a long antenna, a big red button and a small glowing screen"
+require_art scrap_drone "a small hovering robot drone enemy seen from the side, rusty grey metal body, one big glowing red eye lens, two small spinning rotors on top, antenna"
+require_art neon_slime "a cute glowing cyan neon slime blob enemy with glowing circuit board lines inside it, two black eyes, a small antenna on top"
+require_art mech_walker "a small bipedal walking robot goblin enemy seen from the side facing left, rusty orange metal body, stubby legs mid-stride, one glowing green eye, claw arms"
+require_art mothership "a huge flying mechanical drone mothership boss seen from the side, wide saucer-like hull of rusty grey armor plates, one giant glowing red core eye on its underside, antennas, small turrets and blinking landing lights"
+
+[ "$missing" -eq 0 ] || exit 1
+mkdir -p "$OUT" "$(dirname "$ICON")"
 
 # ------------------------------------------------------------------ 2. sprites
 
 # White background -> transparent: --grey 232 clears pixels whose channels are all >= 232 (the white
-# plus flux's off-white noise), --tol 0 turns off the colour-distance test.
+# plus off-white background noise), --tol 0 turns off the colour-distance test.
 cut() { local name=$1; shift; q sprite cutout "$(raw "$name")" "$T/$name.png" --bg ffffff --tol 0 --grey 232 "$@"; }
 
 # items, pointing right. --holes also clears white that the object encloses (between grip and barrel)
@@ -61,12 +58,12 @@ cut missile_launcher --holes
 um sprite fit "$T/missile_launcher.png" "$OUT/HomingMissileLauncher.png" --size 64x26
 cut tesla_rifle --holes
 um sprite fit "$T/tesla_rifle.png" "$OUT/TeslaRifle.png" --size 62x30
-cut nuke --grey 150                        # also the soft grey shadow flux put around it
+cut nuke --grey 150                        # also the soft grey shadow around it
 um sprite fit "$T/nuke.png" "$OUT/TacticalNuke.png" --size 40x84
 cut orbital_remote --grey 225 --spread 31  # every channel >= 225: this one sat on a greyer white
 um sprite fit "$T/orbital_remote.png" "$OUT/OrbitalStrike.png" --size 24x38
 
-# flux drew these two at an angle: rotate level, fit small, then centre in the frame (--no-upscale).
+# The bundled drawings show these two at an angle: rotate level, fit small, then centre in the frame (--no-upscale).
 # They stay the size the first build gave them: the missile is drawn at 1.2x, and the launcher's
 # hold offset was tuned for a gun this big.
 cut missile

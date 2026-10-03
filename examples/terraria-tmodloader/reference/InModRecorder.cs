@@ -1,4 +1,4 @@
-// REFERENCE ONLY - not part of the FalArsenal build. It sits outside the mod folder on purpose
+// REFERENCE ONLY - not part of the ModArsenal build. It sits outside the mod folder on purpose
 // (tModLoader compiles every .cs file under a mod's folder) and nothing in the mod calls it.
 //
 // The in-game recorder the original showcase mod used for its videos: the scripted scene called

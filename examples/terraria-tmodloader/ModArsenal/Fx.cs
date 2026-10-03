@@ -9,7 +9,7 @@ using Terraria.Graphics.CameraModifiers;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FalArsenal
+namespace ModArsenal
 {
 	/// <summary>
 	/// Effects shared by the weapons and enemies: pixel-puff explosions, the nuke (crater, fireball,

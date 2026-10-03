@@ -7,7 +7,7 @@ game_version: "Terraria 1.4.5.8 (decompiled), tModLoader 1.4.4.9 base for the in
 platform: windows
 engine: xna-fna
 route: loader-api
-tools: ["ilspycmd", "numpy", "numba", "PufferLib 3", "PyTorch", "fal serverless (training)", "tModLoader"]
+tools: ["ilspycmd", "numpy", "numba", "PufferLib 3", "PyTorch", "tModLoader"]
 anti_cheat: "none (single player)"
 status: working
 agents: ["Claude Code (Opus 5.5)"]
@@ -28,7 +28,8 @@ tags: [reinforcement-learning, simulator, sim-to-real, decompile, trace-replay, 
 - **Decompiles:** Terraria 1.4.5.8 with `ilspycmd` into a folder outside the repo. tModLoader's 1.4.4.9
   base decompiled too. The two were diffed: the Eye's AI is identical, apart from refactors like
   `ClearTarget()` vs `target = 255`.
-- **Training:** Python 3.12 with PufferLib 3.0.0, locally on an RTX 4090 and on fal serverless H100s.
+- **Training:** Python 3.12 with PufferLib 3.0.0, on an RTX 4090 locally; larger historical runs also used remote H100 hardware.
+  The local training route requires no hosted service.
 - **In game:** a tModLoader mod builds an arena identical to the sim, runs fights back to back, and logs
   results plus per-frame traces.
 
@@ -73,17 +74,15 @@ steps/s.
    - **Cause:** its bundled demo C environments fail to compile.
    - **Fix:** build a wheel with `NO_OCEAN=1` and a one-line `setup.py` fix. It pins numpy<2 and its torch
      ABI.
-5. **Serverless training failed to start.**
-   - **Cause:** the key in use was a model-API key without serverless permissions.
-   - **Fix:** `fal auth login` (device flow, approved by the human).
-6. **Recording from inside the mod leaked memory.** See the Fal Arsenal note: capture the window from
+5. **Recording from inside the mod leaked memory.** See the Mod Arsenal note: capture the window from
    outside instead.
 
 ## Assets
-A fal-generated reskin of the Eye and servants (flux/dev → `um sprite`) for the video.
+The original video used a FLUX.1 [dev] reskin of the Eye and servants, processed with `um sprite`.
+Use local art or the original game appearance when recreating the experiment.
 
 ## Cost and time
-Roughly two days of sessions (approximate), plus fal GPU time for the large runs.
+Roughly two days of sessions (approximate), plus GPU time for the large historical runs.
 
 ## Open questions
 - Expert mode, and other bosses (the port pattern generalizes).

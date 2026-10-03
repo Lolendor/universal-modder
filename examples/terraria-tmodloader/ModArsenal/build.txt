@@ -1,4 +1,4 @@
-displayName = Fal Arsenal
+displayName = Mod Arsenal
 author = universal-modder
 version = 0.1
 side = Both

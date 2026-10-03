@@ -1,10 +1,10 @@
 using Terraria.ModLoader;
 
-namespace FalArsenal
+namespace ModArsenal
 {
 	/// <summary>
-	/// Fal Arsenal: weapons, enemies and a boss that aren't in vanilla Terraria, with sprites generated
-	/// with fal (../assets/make_art.sh). tModLoader finds every ModItem / ModNPC / ModProjectile /
+	/// Mod Arsenal: weapons, enemies and a boss that aren't in vanilla Terraria, with bundled sprites processed
+	/// locally (../assets/make_art.sh). tModLoader finds every ModItem / ModNPC / ModProjectile /
 	/// ModSystem / ModCommand in the assembly by itself, so this class stays empty.
 	///
 	///   Weapons.cs        Homing Missile Launcher, Tactical Nuke
@@ -14,7 +14,7 @@ namespace FalArsenal
 	///   Fx.cs             explosions, nuke crater + mushroom cloud, flash, camera focus
 	///   Commands.cs       /arsenal, /mothership
 	/// </summary>
-	public class FalArsenal : Mod
+	public class ModArsenal : Mod
 	{
 	}
 }

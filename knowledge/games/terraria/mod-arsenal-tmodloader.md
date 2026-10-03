@@ -1,34 +1,34 @@
 ---
 kind: game
-title: "Fal Arsenal: missiles, a tactical nuke, new enemies and a boss for Terraria"
+title: "Mod Arsenal: missiles, a tactical nuke, new enemies and a boss for Terraria"
 game: "Terraria"
 games_also: []
 game_version: "Terraria 1.4.4.9 via tModLoader 2026.07 (GitHub build), Steam; vanilla 1.4.5.8 decompiled for reference"
 platform: windows
 engine: xna-fna
 route: loader-api
-tools: ["tModLoader", "ilspycmd", "fal (flux/dev)", "um sprite", "ffmpeg gfxcapture", "ProcLoopback"]
+tools: ["tModLoader", "ilspycmd", "FLUX.1 [dev] (original art)", "um sprite", "ffmpeg gfxcapture", "ProcLoopback"]
 anti_cheat: "none (single player)"
 status: working
 agents: ["Claude Code (Opus 5.5)"]
 humans: ["@rehan_shei"]
 date: 2026-09-28
-links: ["https://github.com/rehan-remade/universal-modder/tree/main/examples/terraria-tmodloader"]
+links: ["https://github.com/Lolendor/universal-modder/tree/main/examples/terraria-tmodloader"]
 tags: [weapons, projectiles, boss, npc-ai, sprites, explosions, camera, showcase-video]
 ---
 
-# Fal Arsenal: missiles, a tactical nuke, new enemies and a boss for Terraria
+# Mod Arsenal: missiles, a tactical nuke, new enemies and a boss for Terraria
 
 > Five weapons (homing missile launcher, a tactical nuke that craters the world, a chain-lightning rifle,
 > a black-hole gun, an orbital strike), three new enemies and a two-phase Drone Mothership boss. All
-> sprites were generated with fal. It's built as a tModLoader mod, tested in game, and recorded for an X
+> sprites use bundled FLUX.1 [dev] drawings processed locally. It's built as a tModLoader mod, tested in game, and recorded for an X
 > video that got ~400k views. Code: `examples/terraria-tmodloader`.
 
 ## Setup
 - **Loader:** tModLoader, the free Steam app **1281930**. It must be in the Steam library or it won't start.
   The GitHub build was used, with an isolated save folder.
 - **Reference source:** `ilspycmd -p` on `Terraria.exe`, into a folder outside the repo.
-- **Art:** fal `flux/dev` → `um sprite` (cutout, fit, sheet).
+- **Art:** bundled FLUX.1 [dev] art → `um sprite` (cutout, fit, sheet).
 
 ## Route and why
 **Loader API.** tModLoader exposes everything as C# subclasses:
@@ -56,9 +56,9 @@ No reason to go lower.
   - `Main.instance.InactiveSleepTime = TimeSpan.Zero` keeps full speed while unfocused.
 
 ## Build steps
-1. Put `FalArsenal/` in `Documents/My Games/Terraria/tModLoader/ModSources/`.
+1. Put `ModArsenal/` in `Documents/My Games/Terraria/tModLoader/ModSources/`.
 2. In game: Workshop > Develop Mods > Build + Reload. Or from the command line:
-   `dotnet tModLoader.dll -build <ModSources>/FalArsenal`.
+   `dotnet tModLoader.dll -build <ModSources>/ModArsenal`.
 3. Get the items with `/arsenal` (or the recipes), and summon the boss with `/mothership`.
 
 ## Verification
@@ -103,7 +103,7 @@ No reason to go lower.
 
 ## Cost and time
 Roughly a day for the weapons and showcase, and another half-day for the boss set (approximate), with one
-agent and a human reviewing clips. fal spend was a few dollars.
+agent and a human reviewing clips. The bundled sources can be processed locally without generation charges.
 
 ## Open questions
 - Multiplayer sync for the nuke's world edits at scale.

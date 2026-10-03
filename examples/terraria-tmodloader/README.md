@@ -1,7 +1,7 @@
-# Terraria (tModLoader): Fal Arsenal
+# Terraria (tModLoader): Mod Arsenal
 
 A tModLoader mod with five weapons, three enemies and a boss that aren't in vanilla Terraria. The
-sprites were generated with fal (FLUX dev) and cut into Terraria's frame layout with `um sprite`. It
+bundled FLUX.1 [dev] drawings are converted into Terraria's frame layout with `um sprite`. It
 was ported from the mod behind the Terraria showcase videos (single player, tModLoader 2026.07 on
 Terraria 1.4.4); the scripted scenes, RL agent and in-game recorder were taken out, and the recorder
 and agent bridge are kept in `reference/` for what they teach.
@@ -36,24 +36,27 @@ server).
 
 ## Install and build
 
+This fork renames the mod to **ModArsenal**. It has a separate tModLoader identity from the upstream
+example; disable the old mod when switching. Item IDs and localization now use `ModArsenal`.
+
 1. Install tModLoader from Steam. It's free (app 1281930), and it has to be in your Steam library to
    start at all.
-2. Copy `FalArsenal/` into your ModSources folder. tModLoader creates that folder, along with the
-   `tModLoader.targets` file that `FalArsenal.csproj` imports, when you open Workshop > Develop Mods:
+2. Copy `ModArsenal/` into your ModSources folder. tModLoader creates that folder, along with the
+   `tModLoader.targets` file that `ModArsenal.csproj` imports, when you open Workshop > Develop Mods:
    - Windows: `Documents\My Games\Terraria\tModLoader\ModSources\`
    - Linux: `~/.local/share/Terraria/tModLoader/ModSources/`
    - macOS: `~/Library/Application Support/Terraria/tModLoader/ModSources/`
-3. In the game, go to **Workshop > Develop Mods > FalArsenal > Build + Reload**. That builds the mod,
+3. In the game, go to **Workshop > Develop Mods > ModArsenal > Build + Reload**. That builds the mod,
    enables it and reloads.
 
 From the command line, all of these build a `.tmod` into `<save folder>/Mods` and enable it:
 
 ```
 # from the tModLoader install folder, with the .NET runtime it installs on first start (no SDK needed)
-.\dotnet\dotnet.exe tModLoader.dll -build "<ModSources>\FalArsenal"   # Windows (cmd or PowerShell)
-dotnet tModLoader.dll -build "<ModSources>/FalArsenal"                 # any .NET 8 (Linux, WSL)
+.\dotnet\dotnet.exe tModLoader.dll -build "<ModSources>\ModArsenal"   # Windows (cmd or PowerShell)
+dotnet tModLoader.dll -build "<ModSources>/ModArsenal"                 # any .NET 8 (Linux, WSL)
 
-# in FalArsenal/, with the .NET 8 SDK (this is also what IDEs use)
+# in ModArsenal/, with the .NET 8 SDK (this is also what IDEs use)
 dotnet build                                                           # inside ModSources/
 dotnet build -p:TmlInstallDir="<tModLoader install folder>"            # anywhere else
 ```
@@ -77,27 +80,25 @@ your normal save folder.
 
 ## How the art was made
 
-`assets/make_art.sh` rebuilds every PNG in `FalArsenal/Assets` and `FalArsenal/icon.png`:
+`assets/make_art.sh` rebuilds every PNG in `ModArsenal/Assets` and `ModArsenal/icon.png`:
 
-1. fal FLUX dev draws each object on a flat white background (1024x1024). The prompt is the object
-   plus one shared style line: *16-bit pixel art game sprite in the style of Terraria, crisp dark
-   outline, limited palette, centered, plain flat white background, no shadow, no text*.
+1. The ten bundled drawings are in `assets/gen/` as JPEGs. The script only reads local files.
+   To replace the art, save files with the same base names as PNG, JPEG or WebP, then run:
 
    ```bash
-   um fal run fal-ai/flux/dev "prompt=a single small guided missile seen from the side pointing right, red nose cone, white and grey body, small tail fins, flame at the back. <style>" \
-     image_size=square_hd num_images:=1 num_inference_steps:=40 output_format=png --out gen --name missile
+   GEN=/path/to/my-art OUT=/tmp/arsenal-assets ICON=/tmp/arsenal-icon.png assets/make_art.sh
    ```
 
-   It uses `um fal run` rather than `um fal image`, because the image recipe adds inputs meant for its
-   default model. The ten drawings this mod shipped with are in `assets/gen/` (as `.jpg`, flux/dev's
-   default format), and the script only calls fal (with `FAL_KEY`) for a file you delete. There's no
-   fixed seed, so that call draws something new.
+   Missing input is reported with a suggested prompt and an error before any sprites are written.
+   Draw replacements locally or use an available built-in image tool. A useful style is *16-bit pixel
+   art game sprite in the style of Terraria, crisp dark outline, limited palette, centered, plain flat
+   white background, no shadow, no text*. No service account or generation key is needed.
 
 2. `um sprite` turns each drawing into the frames the mod uses:
 
    ```bash
    um sprite cutout gen/missile.jpg t/missile.png --bg ffffff --tol 0 --grey 232   # border flood fill: all channels >= 232 -> clear
-   um sprite rotate t/missile.png t/missile_level.png -45                          # flux drew it diagonally
+   um sprite rotate t/missile.png t/missile_level.png -45                          # the source drawing is diagonal
    um sprite fit t/missile_level.png t/missile_small.png --size 14x5               # nearest neighbour, once
    um sprite fit t/missile_small.png Assets/HomingMissile.png --size 38x16 --no-upscale
 
@@ -151,13 +152,13 @@ your normal save folder.
 - Under WSL, against a Windows install, `dotnet tModLoader.dll -build` worked. `dotnet build` compiled
   there too, but its packaging step (`-server -build`) failed to load FNA3D, which it needs to convert
   the PNGs. Package on Windows, or use `-build` under WSL.
-- flux/dev returns JPEG unless you ask for `output_format=png`. The first build saved its JPEGs with
-  a `.png` name, and Pillow opened them anyway; they're stored under their real extension here.
+- The original drawings are JPEGs. Keep the real file extension when replacing them; Pillow also
+  accepts PNG and WebP sources.
 
 ## Files
 
 ```
-FalArsenal/            the mod (copy this into ModSources)
+ModArsenal/            the mod (copy this into ModSources)
   Weapons.cs           Homing Missile Launcher, Tactical Nuke
   EnergyWeapons.cs     Tesla Rifle, Singularity Launcher, Orbital Strike
   Mobs.cs              Scrap Drone, Neon Slime, Mech Walker
@@ -166,10 +167,11 @@ FalArsenal/            the mod (copy this into ModSources)
   Commands.cs          /arsenal, /mothership
   Localization/        display names and tooltips
   Assets/, icon.png    sprites (made by assets/make_art.sh)
-assets/make_art.sh     fal prompts -> um sprite pipeline
-assets/gen/            the raw fal/flux drawings it starts from
+assets/make_art.sh     local drawings -> um sprite pipeline
+assets/gen/            the bundled original drawings it starts from
 reference/             not built: InModRecorder.cs (window + game-audio capture from inside the game),
                        AgentBridge.cs (JSON-lines socket so an outside agent can read menus, click and play)
 ```
 
-Sprites generated with fal (fal-ai/flux/dev) and processed with universal-modder's `um sprite`.
+Original sprites: FLUX.1 [dev] by Black Forest Labs, from Rehan's upstream example; processed with
+universal-modder's `um sprite`. This fork rebuilds from those local source drawings.

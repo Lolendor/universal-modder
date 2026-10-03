@@ -9,13 +9,13 @@ using Terraria.Graphics.CameraModifiers;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FalArsenal
+namespace ModArsenal
 {
 	// ------------------------------------------------------------------ Tesla Rifle: chain lightning
 
 	public class TeslaRifle : ModItem
 	{
-		public override string Texture => "FalArsenal/Assets/TeslaRifle";
+		public override string Texture => "ModArsenal/Assets/TeslaRifle";
 
 		public override void SetDefaults()
 		{
@@ -69,7 +69,7 @@ namespace FalArsenal
 	/// The span rides in ai (not velocity) because ai is what gets synced to other players.</summary>
 	public class TeslaArc : ModProjectile
 	{
-		public override string Texture => "FalArsenal/Assets/HomingMissile"; // unused: drawn procedurally
+		public override string Texture => "ModArsenal/Assets/HomingMissile"; // unused: drawn procedurally
 		Vector2 Span => new(Projectile.ai[0], Projectile.ai[1]);
 
 		public override void SetDefaults()
@@ -107,7 +107,7 @@ namespace FalArsenal
 
 	public class SingularityLauncher : ModItem
 	{
-		public override string Texture => "FalArsenal/Assets/SingularityLauncher";
+		public override string Texture => "ModArsenal/Assets/SingularityLauncher";
 
 		public override void SetDefaults()
 		{
@@ -130,7 +130,7 @@ namespace FalArsenal
 
 	public class SingularityOrb : ModProjectile
 	{
-		public override string Texture => "FalArsenal/Assets/HomingMissile"; // unused: drawn procedurally
+		public override string Texture => "ModArsenal/Assets/HomingMissile"; // unused: drawn procedurally
 		const int Travel = 36, Hole = 150;
 
 		public override void SetDefaults()
@@ -222,7 +222,7 @@ namespace FalArsenal
 
 	public class OrbitalStrike : ModItem
 	{
-		public override string Texture => "FalArsenal/Assets/OrbitalStrike";
+		public override string Texture => "ModArsenal/Assets/OrbitalStrike";
 
 		public override void SetDefaults()
 		{
@@ -255,7 +255,7 @@ namespace FalArsenal
 	/// and holds it, scorching the ground where it first landed.</summary>
 	public class OrbitalBeam : ModProjectile
 	{
-		public override string Texture => "FalArsenal/Assets/HomingMissile"; // unused: drawn procedurally
+		public override string Texture => "ModArsenal/Assets/HomingMissile"; // unused: drawn procedurally
 		const int Lock = 45, Fire = 120, Fade = 20;
 
 		public override void SetDefaults()

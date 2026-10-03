@@ -7,20 +7,20 @@ game_version: "AoE2 DE (Steam), September 2026 build"
 platform: windows
 engine: genie
 route: data
-tools: ["genieutils-py", "AoE2ScenarioParser", "fal (flux/dev, trellis)", "Blender", "um render3d", "sld.py (custom)", "WinDrive", "ffmpeg gfxcapture"]
+tools: ["genieutils-py", "AoE2ScenarioParser", "FLUX.1 [dev], TRELLIS (original art)", "Blender", "um render3d", "sld.py (custom)", "WinDrive", "ffmpeg gfxcapture"]
 anti_cheat: "none for single player / lobbies (ranked uses unmodded data)"
 status: working
 agents: ["Claude Code (Opus 5.5)"]
 humans: ["@rehan_shei"]
 date: 2026-09-29
-links: ["https://github.com/rehan-remade/universal-modder/tree/main/examples/aoe2-de-civ"]
+links: ["https://github.com/Lolendor/universal-modder/tree/main/examples/aoe2-de-civ"]
 tags: [civilization, data-mod, sld, sprite-format, reverse-engineering, 3d-to-sprite, player-colour, scenario]
 ---
 
 # San Franciscans: a new civilization for Age of Empires II DE with units rendered from 3D
 
 > A playable civilization with its own bonuses, unique techs, a Transamerica Pyramid wonder, and a Robotaxi
-> unique unit plus Delivery Drones. The units are fal image → fal 3D → Blender renders from AoE2's camera,
+> unique unit plus Delivery Drones. The units are bundled GLBs → Blender renders from AoE2's camera,
 > written into the game's `.sld` sprite format, which we reverse-engineered. It's tested in game and
 > recorded. Code: `examples/aoe2-de-civ`.
 
@@ -59,9 +59,9 @@ one binary `.dat` that genieutils reads and writes, so no code injection is need
 
 ## Build steps
 1. **Sprites:**
-   1. `um fal image` for the concept (white background, **saturated blue trim** where player colour
+   1. Use a local concept image (white background, **saturated blue trim** where player colour
       goes).
-   2. `um fal model3d` for the GLB.
+   2. Use the bundled GLB or export your own from Blender; images alone cannot supply a mesh.
    3. `um render3d --preset aoe2 --shadows` for the frames.
    4. `make_sprites.py pack`: blue → player mask, burnt death frames, then `.sld`.
 2. **Data:** `build_mod.py`:
@@ -108,15 +108,14 @@ one binary `.dat` that genieutils reads and writes, so no code injection is need
      Set any window size via registry `Windowed Width/Height` (1936x1119 → a 1920x1080 client).
 
 ## Assets
-- fal flux/dev concepts in a "clean studio product render, three-quarter view, white background" style,
+- Bundled FLUX.1 [dev] concepts in a "clean studio product render, three-quarter view, white background" style,
   with blue accents for player colour.
-- fal Trellis for the GLBs.
+- Bundled TRELLIS GLBs; local Blender models work too.
 - The wonder was painted directly in AoE2's projection and fitted to the 5x5 footprint. It's a single frame,
   so no 3D was needed.
 
 ## Cost and time
-About a day, most of it on reverse-engineering the SLD format and on the civ-picker limit. fal spend was
-a few dollars.
+About a day, most of it on reverse-engineering the SLD format and on the civ-picker limit. The bundled art needs no generation service to rebuild.
 
 ## Open questions
 - Truly adding a 64th civ would mean patching the exe's civ tables. That's out of scope for a data mod.

@@ -3,11 +3,11 @@
     um publish check ./MyMod --game "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Terraria"
 
 FAIL  files byte-identical to files in the game install (redistributing game files), leaked API keys
-      (FAL_KEY, Anthropic, GitHub, AWS...), .env files
+      (credential assignments, Anthropic, OpenAI, GitHub, AWS...), .env files
 WARN  decompiler fingerprints in source (FUN_xxxx / DAT_xxxx / sub_XXXX, "// Decompiled with", ILSpy/dnSpy
       headers) - reimplement or reference instead of shipping decompiled code; big engine archives
       (.pak/.bsa/.ba2/.vpk/.rpf/.utoc...) that may carry original assets; absolute user paths; no README /
-      credits; fal-generated assets listed in fal_manifest.jsonl without an attribution line
+      credits
 Modelled on IW4L's publish-check. It is a lint, not legal advice: when in doubt ship a patch/converter that
 runs on the user's own install ("bring your own game files") instead of the files themselves.
 """
@@ -20,8 +20,7 @@ from pathlib import Path
 from um.common import die, to_posix
 
 SECRET_PATTERNS = [
-    ("fal key", re.compile(r"\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}:[0-9a-f]{32}\b")),
-    ("FAL_KEY assignment", re.compile(r"FAL_KEY\s*[=:]\s*['\"]?[A-Za-z0-9:_\-]{20,}")),
+    ("credential assignment", re.compile(r"\b[A-Z][A-Z0-9_]*(?:KEY|TOKEN|SECRET)\s*[=:]\s*['\"]?[A-Za-z0-9:_\-]{20,}")),
     ("Anthropic key", re.compile(r"sk-ant-[A-Za-z0-9_\-]{20,}")),
     ("OpenAI key", re.compile(r"\bsk-(?:proj-)?[A-Za-z0-9]{32,}")),
     ("GitHub token", re.compile(r"\bgh[pousr]_[A-Za-z0-9]{30,}")),
@@ -97,11 +96,6 @@ def check(mod: str, game: str | None = None) -> int:
     names = {f.name.lower() for f in files}
     if not any(n.startswith("readme") for n in names):
         warns.append("no README (install steps, requirements, credits)")
-    manifests = [f for f in files if f.name == "fal_manifest.jsonl"]
-    if manifests:
-        readmes = [f for f in files if f.name.lower().startswith(("readme", "credits"))]
-        if not any("fal" in f.read_text(errors="replace").lower() for f in readmes):
-            warns.append("fal-generated assets (fal_manifest.jsonl) but no credit line in README/CREDITS")
     for x in fails:
         print("FAIL ", x)
     for x in warns:

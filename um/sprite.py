@@ -254,7 +254,7 @@ def team_mask(im, hue: str = "blue", sat_lo: float = 0.25, val_lo: float = 0.15)
 
 def seamless(im, blend: float = 0.25):
     """Tileable texture: offset by half and cross-fade the seams with the original (works well on noisy
-    textures; for hero textures prefer `um fal texture`, which generates tiling directly)."""
+    textures; inspect the tile preview and author hero textures with matching edges)."""
     np = need("numpy")
     a = np.asarray(im.convert("RGBA")).astype(np.float32)
     h, w = a.shape[:2]

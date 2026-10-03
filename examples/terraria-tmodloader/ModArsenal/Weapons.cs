@@ -9,14 +9,14 @@ using Terraria.Graphics.CameraModifiers;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace FalArsenal
+namespace ModArsenal
 {
 	// Explosives. Item sprites point right (vanilla convention); the recipes are cheap on purpose so
 	// the mod can be tried without the /arsenal command.
 
 	public class HomingMissileLauncher : ModItem
 	{
-		public override string Texture => "FalArsenal/Assets/HomingMissileLauncher";
+		public override string Texture => "ModArsenal/Assets/HomingMissileLauncher";
 
 		public override void SetDefaults()
 		{
@@ -45,7 +45,7 @@ namespace FalArsenal
 
 	public class HomingMissile : ModProjectile
 	{
-		public override string Texture => "FalArsenal/Assets/HomingMissile";
+		public override string Texture => "ModArsenal/Assets/HomingMissile";
 
 		public override void SetDefaults()
 		{
@@ -112,7 +112,7 @@ namespace FalArsenal
 	/// <summary>Calls a warhead down 60 tiles in front of you. Not consumed.</summary>
 	public class TacticalNuke : ModItem
 	{
-		public override string Texture => "FalArsenal/Assets/TacticalNuke";
+		public override string Texture => "ModArsenal/Assets/TacticalNuke";
 
 		public override void SetDefaults()
 		{
@@ -144,7 +144,7 @@ namespace FalArsenal
 	/// <summary>Falls onto ground level (ai[0], set at launch) and detonates there.</summary>
 	public class NukeWarhead : ModProjectile
 	{
-		public override string Texture => "FalArsenal/Assets/TacticalNuke";
+		public override string Texture => "ModArsenal/Assets/TacticalNuke";
 
 		public override void SetDefaults()
 		{
